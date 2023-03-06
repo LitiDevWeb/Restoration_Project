@@ -1,0 +1,44 @@
+@import '@/styles/typography.scss';
+@import '@/styles/colors.scss';
+@import '@/styles/custom.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  font-size: $label-large;
+  box-shadow: $shadow-box-basic;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1rem;
+  font-size: $body-medium;
+  font-weight: 600;
+
+  p {
+    text-shadow: $shadow-text-basic;
+  }
+}
+
+.contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2rem;
+  font-weight: 600;
+}
+
+.info-box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1rem;
+
+  svg {
+    color: orange;
+  }
+}
