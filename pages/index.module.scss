@@ -1,0 +1,32 @@
+@import '@/styles/typography.scss';
+@import '@/styles/colors.scss';
+@import '@/styles/custom.scss';
+
+.slider {
+  height: 100%;
+}
+
+.home-container {
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+}
+
+.home-title {
+  font-size: $display-large;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  span {
+    color: $primary;
+  }
+}
+
+.home-description {
+  text-align: center;
+  font-size: $display-small;
+  padding: 0rem 8rem;
+}

@@ -17,11 +17,7 @@
   align-items: center;
   column-gap: 1rem;
   font-size: $body-medium;
-  font-weight: 600;
-
-  p {
-    text-shadow: $shadow-text-basic;
-  }
+  font-weight: 500;
 }
 
 .contact {
@@ -39,6 +35,6 @@
   column-gap: 1rem;
 
   svg {
-    color: orange;
+    color: $primary;
   }
 }
