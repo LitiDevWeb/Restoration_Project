@@ -1,4 +1,4 @@
-import '@/styles/globals.scss';
+import '@webapp/styles/globals.scss';
 import '@fontsource/montserrat';
 import '@splidejs/react-splide/css';
 

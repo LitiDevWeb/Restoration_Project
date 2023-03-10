@@ -4,12 +4,12 @@ import styles from './container.module.scss';
 import classNames from 'classnames';
 
 interface ContainerProps {
-  home: string;
+  page: string;
   children: React.ReactElement[] | React.ReactElement;
 }
 
-const Container = ({ home, children }: ContainerProps) => {
-  return <div className={classNames(styles['container'], styles[`image-${home}`])}>{children}</div>;
+const Container = ({ page, children }: ContainerProps) => {
+  return <div className={classNames(styles['container'], styles[`image-${page}`])}>{children}</div>;
 };
 
 export default Container;

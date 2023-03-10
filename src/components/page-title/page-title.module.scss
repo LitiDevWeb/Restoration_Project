@@ -1,0 +1,16 @@
+@import '@styles';
+
+.text {
+  font-size: $headline-large;
+  font-weight: 600;
+  text-transform: uppercase;
+  span {
+    color: $primary;
+  }
+}
+
+.divider {
+  width: 5rem;
+  height: 0.4rem;
+  background: $primary;
+}

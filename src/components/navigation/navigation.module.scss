@@ -1,7 +1,9 @@
-@import '@/styles/colors.scss';
-@import '@/styles/typography.scss';
+@import '@styles';
 
 .container {
+  position: absolute;
+  width: 96vw;
+  z-index: 1;
   display: flex;
   column-gap: 2rem;
   padding: 3rem 3rem 0rem 3rem;
@@ -13,6 +15,15 @@
     font-size: $body-medium;
     text-decoration: none;
     text-transform: uppercase;
+
+    @media (width < $breakpoint-width-mobile) {
+      font-size: $label-large;
+    }
+  }
+
+  @media (width < $breakpoint-width-mobile) {
+    padding: 2rem 1rem 0rem 1rem;
+    column-gap: 1rem;
   }
 }
 

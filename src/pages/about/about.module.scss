@@ -1,0 +1,68 @@
+@import '@styles';
+
+.about {
+  display: flex;
+  color: $white;
+}
+
+.about-us-headline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2rem;
+  color: $white;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  flex-basis: 50%;
+}
+
+.text-container {
+  flex-basis: 50%;
+}
+
+.subtext-container {
+  padding: 0rem 2rem;
+}
+
+.title {
+  font-size: $display-medium;
+  font-weight: 600;
+  padding-right: 10rem;
+
+  margin: 1rem 0rem;
+
+  p {
+    margin: 0;
+  }
+
+  span {
+    color: $primary;
+  }
+}
+
+.description {
+  font-size: $title-large;
+  padding-right: 10rem;
+  margin: 0;
+}
+
+.work-attributes {
+  margin-top: 1.5rem;
+
+  .work-line {
+    display: flex;
+    align-items: center;
+
+    p {
+      font-size: $title-small;
+    }
+
+    svg {
+      margin-right: 2rem;
+      color: $primary;
+    }
+  }
+}

@@ -1,14 +1,17 @@
-@import '@/styles/typography.scss';
-@import '@/styles/colors.scss';
-@import '@/styles/custom.scss';
+@import '@styles';
 
 .container {
+  height: 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   font-size: $label-large;
   box-shadow: $shadow-box-basic;
+
+  @media (width < $breakpoint-width-mobile) {
+    padding: 1rem 1rem;
+  }
 }
 
 .logo {
@@ -18,6 +21,12 @@
   column-gap: 1rem;
   font-size: $body-medium;
   font-weight: 500;
+
+  p {
+    @media (width < $breakpoint-width-mobile) {
+      display: none;
+    }
+  }
 }
 
 .contact {

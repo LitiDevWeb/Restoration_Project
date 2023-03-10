@@ -9,8 +9,8 @@ const Navigation = () => {
   return (
     <div className={styles['container']}>
       <div>
-        <Link href='/'>Home</Link>
-        {pathname === '/' && <div className={styles['active-bar']}></div>}
+        <Link href='/home'>Home</Link>
+        {pathname === '/home' && <div className={styles['active-bar']}></div>}
       </div>
       <div>
         <Link href='/about'>about us</Link>

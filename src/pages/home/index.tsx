@@ -1,18 +1,18 @@
-import Container from '@/components/container/container';
-import Navbar from '@/components/navbar/navbar';
-import Navigation from '@/components/navigation/navigation';
-import styles from './index.module.scss';
+import Container from '@webapp/components/container/container';
+import Navbar from '@webapp/components/navbar/navbar';
+import Navigation from '@webapp/components/navigation/navigation';
+import styles from './home.module.scss';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
-export default function App() {
+export default function Home() {
   return (
     <div>
       <Navbar />
+      <Navigation />
       <Splide aria-label='My Favorite Images' className={styles['slider']}>
         <SplideSlide>
-          <Container home={'home-A'}>
-            <Navigation />
+          <Container page={'home-A'}>
             <div className={styles['home-container']}>
               <p className={styles['home-title']}>
                 <span>fennec</span> restoration & remodeling
@@ -25,8 +25,7 @@ export default function App() {
           </Container>
         </SplideSlide>
         <SplideSlide>
-          <Container home={'home-B'}>
-            <Navigation />
+          <Container page={'home-B'}>
             <div className={styles['home-container']}>
               <p className={styles['home-title']}>
                 <span>renovation</span> for every budget
@@ -36,8 +35,7 @@ export default function App() {
           </Container>
         </SplideSlide>
         <SplideSlide>
-          <Container home={'home-C'}>
-            <Navigation />
+          <Container page={'home-C'}>
             <div className={styles['home-container']}>
               <p className={styles['home-title']}>
                 <span>restore</span> and remodel your dream house

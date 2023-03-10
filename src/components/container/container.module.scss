@@ -1,0 +1,21 @@
+.container {
+  height: calc(100vh - 5rem);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.image-home-A {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../public/images/home-a.png');
+}
+
+.image-home-B {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../public/images/home-b.png');
+}
+
+.image-home-C {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../public/images/home-c.png');
+}
+
+.image-about-us {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../../public/images/about-us.png');
+}
