@@ -1,8 +1,7 @@
 @import '@styles';
 
 .container {
-  position: absolute;
-  width: 96vw;
+  width: -webkit-fill-available;
   z-index: 1;
   display: flex;
   column-gap: 2rem;
@@ -32,4 +31,9 @@
   width: -webkit-fill-available;
   height: 0.5rem;
   background: $primary;
+  border-radius: 0.3rem;
+}
+
+.absolute {
+  position: absolute;
 }

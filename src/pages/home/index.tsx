@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <Navigation />
+      <Navigation absolute />
       <Splide aria-label='My Favorite Images' className={styles['slider']}>
         <SplideSlide>
           <Container page={'home-A'}>

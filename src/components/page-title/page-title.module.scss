@@ -4,8 +4,17 @@
   font-size: $headline-large;
   font-weight: 600;
   text-transform: uppercase;
+
   span {
     color: $primary;
+  }
+
+  @media (width < $breakpoint-width-tablet) {
+    font-size: $title-large;
+  }
+
+  @media (width < $breakpoint-width-mobile) {
+    font-size: $title-small;
   }
 }
 
@@ -13,4 +22,10 @@
   width: 5rem;
   height: 0.4rem;
   background: $primary;
+  border-radius: 0.3rem;
+
+  @media (width < $breakpoint-width-mobile) {
+    width: 2rem;
+    height: 0.2rem;
+  }
 }

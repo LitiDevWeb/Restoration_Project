@@ -2,12 +2,17 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './navigation.module.scss';
 import { useRouter } from 'next/router';
+import classNames from 'classnames';
 
-const Navigation = () => {
+interface NavigationProps {
+  absolute?: boolean;
+}
+
+const Navigation = ({ absolute = false }: NavigationProps) => {
   const { pathname } = useRouter();
 
   return (
-    <div className={styles['container']}>
+    <div className={classNames(styles['container'], { [styles['absolute']]: absolute })}>
       <div>
         <Link href='/home'>Home</Link>
         {pathname === '/home' && <div className={styles['active-bar']}></div>}
