@@ -14,13 +14,14 @@
   text-transform: uppercase;
   font-weight: 600;
   text-align: center;
+  margin: 0;
 
   span {
     color: $primary;
   }
 
-  @media (width < $breakpoint-width-tablet) {
-    font-size: $display-medium;
+  @media (width < $breakpoint-width-laptop) {
+    font-size: $display-small;
   }
 
   @media (width < $breakpoint-width-mobile) {
@@ -34,9 +35,9 @@
   font-size: $display-small;
   padding: 0rem 8rem;
 
-  @media (width < $breakpoint-width-tablet) {
-    font-size: $headline-medium;
-    padding: 0rem 4rem;
+  @media (width < $breakpoint-width-laptop) {
+    font-size: $title-large;
+    padding: 0rem 8rem;
   }
 
   @media (width < $breakpoint-width-mobile) {

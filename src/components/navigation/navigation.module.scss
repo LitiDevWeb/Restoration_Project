@@ -15,9 +15,17 @@
     text-decoration: none;
     text-transform: uppercase;
 
+    @media (width < $breakpoint-width-laptop) {
+      font-size: $body-small;
+    }
+    
     @media (width < $breakpoint-width-mobile) {
       font-size: $label-large;
     }
+  }
+
+  @media (width < $breakpoint-width-laptop) {
+    padding: 2rem 2rem 0rem 2rem;
   }
 
   @media (width < $breakpoint-width-mobile) {
