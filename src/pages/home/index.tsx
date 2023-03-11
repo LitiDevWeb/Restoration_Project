@@ -12,7 +12,7 @@ export default function Home() {
       <Navigation absolute />
       <Splide aria-label='My Favorite Images' className={styles['slider']}>
         <SplideSlide>
-          <Container page={'home-A'}>
+          <Container page={'home-A'} calculatedHeight>
             <div className={styles['home-container']}>
               <p className={styles['home-title']}>
                 <span>fennec</span> restoration & remodeling
@@ -25,7 +25,7 @@ export default function Home() {
           </Container>
         </SplideSlide>
         <SplideSlide>
-          <Container page={'home-B'}>
+          <Container page={'home-B'} calculatedHeight>
             <div className={styles['home-container']}>
               <p className={styles['home-title']}>
                 <span>renovation</span> for every budget
@@ -35,7 +35,7 @@ export default function Home() {
           </Container>
         </SplideSlide>
         <SplideSlide>
-          <Container page={'home-C'}>
+          <Container page={'home-C'} calculatedHeight>
             <div className={styles['home-container']}>
               <p className={styles['home-title']}>
                 <span>restore</span> and remodel your dream house

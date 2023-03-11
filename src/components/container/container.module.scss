@@ -1,7 +1,10 @@
 .container {
-  height: calc(100vh - 5rem);
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.calculated-height {
+  height: calc(100vh - 5rem);
 }
 
 .image-home-A {
