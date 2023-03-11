@@ -18,9 +18,9 @@
     @media (width < $breakpoint-width-laptop) {
       font-size: $body-small;
     }
-    
+
     @media (width < $breakpoint-width-mobile) {
-      font-size: $label-large;
+      font-size: $label-small;
     }
   }
 

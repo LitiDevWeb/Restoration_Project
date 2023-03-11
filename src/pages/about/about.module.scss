@@ -14,19 +14,6 @@
   }
 }
 
-.about-us-headline {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 2rem;
-  color: $white;
-
-  @media (width < $breakpoint-width-tablet) {
-    padding-left: 2rem;
-    justify-content: flex-start;
-  }
-}
-
 .image-container {
   display: flex;
   justify-content: center;

@@ -18,7 +18,7 @@ const Navigation = ({ absolute = false }: NavigationProps) => {
         {pathname === '/home' && <div className={styles['active-bar']}></div>}
       </div>
       <div>
-        <Link href='/about'>about us</Link>
+        <Link href='/about'>about</Link>
         {pathname === '/about' && <div className={styles['active-bar']}></div>}
       </div>
       <div>
@@ -26,7 +26,7 @@ const Navigation = ({ absolute = false }: NavigationProps) => {
         {pathname === '/services' && <div className={styles['active-bar']}></div>}
       </div>
       <div>
-        <Link href='/work'>our work</Link>
+        <Link href='/work'>work</Link>
         {pathname === '/work' && <div className={styles['active-bar']}></div>}
       </div>
       <div>

@@ -1,0 +1,18 @@
+@import '@styles';
+
+.container {
+  padding: 0.8rem 1.5rem;
+  background-color: $primary;
+  color: $white;
+  font-size: $body-large;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0.7;
+  transition-duration: 0.3s;
+  border: none;
+  border-radius: 2px;
+}
+
+.active {
+  opacity: 1;
+}

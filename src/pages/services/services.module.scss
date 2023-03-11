@@ -1,0 +1,46 @@
+@import '@styles';
+
+.services {
+  min-height: 100vh;
+}
+
+.card-container {
+  padding-top: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  color: $white;
+
+  img {
+    width: 490px;
+    height: 530px;
+  }
+
+  @media (width < $breakpoint-width-mobile) {
+    img {
+      width: 320px;
+      height: 330px;
+    }
+  }
+}
+
+.white-box {
+  background-color: $white;
+  width: 490px;
+  height: 5rem;
+  transform: translateY(-5rem);
+  text-align: center;
+  color: $black;
+  font-weight: 600;
+  font-size: $headline-small;
+  text-transform: uppercase;
+
+  p {
+    padding-top: 1rem;
+  }
+
+  @media (width < $breakpoint-width-mobile) {
+    width: 320px;
+  }
+}

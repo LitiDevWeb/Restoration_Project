@@ -7,11 +7,11 @@ interface PageTitleProps {
 
 const PageTitle = ({ children }: PageTitleProps) => {
   return (
-    <>
+    <div className={styles['headline']}>
       <div className={styles['divider']}></div>
       <p className={styles['text']}>{children}</p>
       <div className={styles['divider']}></div>
-    </>
+    </div>
   );
 };
 
