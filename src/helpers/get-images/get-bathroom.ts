@@ -10,11 +10,11 @@ import image8 from "@images/bathroom/A3.jpg";
 import image9 from "@images/bathroom/A4.jpg";
 import image10 from "@images/bathroom/A5.jpg";
 
-import image11 from "@images/bathroom/F1.jpg";
-import image12 from "@images/bathroom/F2.jpg";
-import image13 from "@images/bathroom/F3.jpg";
-import image14 from "@images/bathroom/F4.jpg";
-import image15 from "@images/bathroom/F5.jpg";
+import image11 from "@images/bathroom/B1.jpg";
+import image12 from "@images/bathroom/B2.jpg";
+import image13 from "@images/bathroom/B3.jpg";
+import image14 from "@images/bathroom/B4.jpg";
+import image15 from "@images/bathroom/B5.jpg";
 
 export const bathroomImages = [
   image1,
