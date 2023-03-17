@@ -1,16 +1,15 @@
-import { useMemo } from "react";
+import { memo } from "react";
 import Container from "@webapp/components/container/container";
 import Navbar from "@webapp/components/navbar/navbar";
 import Navigation from "@webapp/components/navigation/navigation";
 import ReactCalendar from "react-calendar";
 import styles from "./calendar.module.scss";
-import axios from "axios";
-import dayjs from "dayjs";
-import { UnavailabilityType } from "@prisma/client";
-import "react-calendar/dist/Calendar.css";
-
 import isBetween from "dayjs/plugin/isBetween";
 import PageTitle from "@webapp/components/page-title/page-title";
+import axios from "axios";
+import dayjs from "dayjs";
+
+import { UnavailabilityType } from "@prisma/client";
 import { API_URL } from "@webapp/constants";
 
 dayjs.extend(isBetween);
@@ -87,7 +86,12 @@ const Calendar = ({ data }: any) => {
           </>
         </PageTitle>
         <div className={styles["container"]}>
-          <ReactCalendar className={styles["react-calendar"]} minDate={new Date(dayjs().format(TIMESTAMP_FORMAT))} tileDisabled={(row) => checkIfUnavailable(row.date)} />
+          <ReactCalendar
+            className={styles["react-calendar"]}
+            minDate={new Date(dayjs().format(TIMESTAMP_FORMAT))}
+            tileDisabled={(row) => checkIfUnavailable(row.date)}
+            locale={"en"}
+          />
           <div className={styles["calendar-hint"]}>
             <div className={styles["hint-line"]}>
               <div className={styles["available-circle"]}></div>
@@ -110,4 +114,4 @@ export async function getServerSideProps() {
   return { props: res.data };
 }
 
-export default Calendar;
+export default memo(Calendar);
