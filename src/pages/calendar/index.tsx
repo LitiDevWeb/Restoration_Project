@@ -10,7 +10,8 @@ import { UnavailabilityType } from "@prisma/client";
 import "react-calendar/dist/Calendar.css";
 
 import isBetween from "dayjs/plugin/isBetween";
-import PageTitle from "@webappcomponents/page-title/page-title";
+import PageTitle from "@webapp/components/page-title/page-title";
+import { API_URL } from "@webapp/constants";
 
 dayjs.extend(isBetween);
 
@@ -18,15 +19,14 @@ const TIMESTAMP_FORMAT = "YYYY-MM-DD";
 
 const Calendar = ({ data }: any) => {
   const checkIfUnavailable = (date: any) => {
-    let unavailable = false;
     const currentDate = dayjs(date);
     const formattedCurrentDate = currentDate.format(TIMESTAMP_FORMAT);
 
-    data.forEach((row: any) => {
+    for (const row of data) {
       switch (row.type) {
         case UnavailabilityType.DAY:
           if (row.value.day === formattedCurrentDate) {
-            unavailable = true;
+            return true;
           }
           break;
         case UnavailabilityType.WEEK:
@@ -37,7 +37,7 @@ const Calendar = ({ data }: any) => {
               "day"
             )
           ) {
-            unavailable = true;
+            return true;
           }
           break;
         case UnavailabilityType.MONTH:
@@ -48,7 +48,7 @@ const Calendar = ({ data }: any) => {
               "day"
             )
           ) {
-            unavailable = true;
+            return true;
           }
           break;
         case UnavailabilityType.FROM_TO:
@@ -59,21 +59,21 @@ const Calendar = ({ data }: any) => {
               "day"
             )
           ) {
-            unavailable = true;
+            return true;
           }
           break;
         case UnavailabilityType.WEEK_END:
           if (currentDate.day() === 6 || currentDate.day() === 0) {
-            unavailable = true;
+            return true;
           }
           break;
 
         default:
           break;
       }
-    });
+    }
 
-    return unavailable;
+    return false;
   };
 
   return (
@@ -105,7 +105,7 @@ const Calendar = ({ data }: any) => {
 };
 
 export async function getServerSideProps() {
-  const res = await axios.get("http://localhost:3000/api/unavailabilities");
+  const res = await axios.get(API_URL + "/api/unavailabilities");
 
   return { props: res.data };
 }

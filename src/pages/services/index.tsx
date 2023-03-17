@@ -1,7 +1,7 @@
 import Container from '@webapp/components/container/container';
 import Navbar from '@webapp/components/navbar/navbar';
 import Navigation from '@webapp/components/navigation/navigation';
-import PageTitle from '@webappcomponents/page-title/page-title';
+import PageTitle from '@webapp/components/page-title/page-title';
 import Image from 'next/image';
 import styles from './services.module.scss';
 

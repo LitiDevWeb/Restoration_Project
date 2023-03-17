@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@webapp*": ["./src/*"],
+      "@webapp/*": ["./src/*"],
       "@styles*": ["./src/styles/index.scss"],
       "@images*": ["./public/images/*"]
     }

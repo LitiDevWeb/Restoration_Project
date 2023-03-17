@@ -5,12 +5,12 @@ import Navigation from "@webapp/components/navigation/navigation";
 import styles from "./work.module.scss";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
-import { kitchenImages } from "@webapphelpers/get-images/get-kitchen";
-import { patioImages } from "@webapphelpers/get-images/get-patio";
-import { miscellaneousImages } from "@webapphelpers/get-images/get-miscellaneous";
-import { bedroomImages } from "@webapphelpers/get-images/get-bedroom";
-import { bathroomImages } from "@webapphelpers/get-images/get-bathroom";
-import Button from "@webappcomponents/button/button";
+import { kitchenImages } from "@webapp/helpers/get-images/get-kitchen";
+import { patioImages } from "@webapp/helpers/get-images/get-patio";
+import { miscellaneousImages } from "@webapp/helpers/get-images/get-miscellaneous";
+import { bedroomImages } from "@webapp/helpers/get-images/get-bedroom";
+import { bathroomImages } from "@webapp/helpers/get-images/get-bathroom";
+import Button from "@webapp/components/button/button";
 
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 
