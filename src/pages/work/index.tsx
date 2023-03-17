@@ -1,75 +1,84 @@
-import { useState } from 'react';
-import Container from '@webapp/components/container/container';
-import Navbar from '@webapp/components/navbar/navbar';
-import Navigation from '@webapp/components/navigation/navigation';
-import styles from './work.module.scss';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { useState } from "react";
+import Container from "@webapp/components/container/container";
+import Navbar from "@webapp/components/navbar/navbar";
+import Navigation from "@webapp/components/navigation/navigation";
+import styles from "./work.module.scss";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 
-import { kitchenImages } from '@webapphelpers/get-images/get-kitchen';
-import { patioImages } from '@webapphelpers/get-images/get-patio';
-import { miscellaneousImages } from '@webapphelpers/get-images/get-miscellaneous';
-import { bedroomImages } from '@webapphelpers/get-images/get-bedroom';
-import { bathroomImages } from '@webapphelpers/get-images/get-bathroom';
-import Button from '@webappcomponents/button/button';
+import { kitchenImages } from "@webapphelpers/get-images/get-kitchen";
+import { patioImages } from "@webapphelpers/get-images/get-patio";
+import { miscellaneousImages } from "@webapphelpers/get-images/get-miscellaneous";
+import { bedroomImages } from "@webapphelpers/get-images/get-bedroom";
+import { bathroomImages } from "@webapphelpers/get-images/get-bathroom";
+import Button from "@webappcomponents/button/button";
+
+import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 
 const Work = () => {
   const [part, setPart] = useState(kitchenImages);
-  const [active, setActive] = useState('Kitchen');
+  const [active, setActive] = useState("Kitchen");
 
   return (
     <div>
       <Navbar />
-      <Container page='work' calculatedHeight>
+      <Container page="work" calculatedHeight>
         <Navigation />
-        <div className={styles['work']}>
-          <div className={styles['filters']}>
+        <div className={styles["work"]}>
+          <div className={styles["filters"]}>
             <Button
               onClick={() => {
                 setPart(kitchenImages);
-                setActive('Kitchen');
+                setActive("Kitchen");
               }}
-              label={'Kitchen'}
-              active={active === 'Kitchen'}
+              label={"Kitchen"}
+              active={active === "Kitchen"}
             />
             <Button
               onClick={() => {
                 setPart(bathroomImages);
-                setActive('Bathroom');
+                setActive("Bathroom");
               }}
-              label={'Bathroom'}
-              active={active === 'Bathroom'}
+              label={"Bathroom"}
+              active={active === "Bathroom"}
             />
             <Button
               onClick={() => {
                 setPart(bedroomImages);
-                setActive('Bedroom');
+                setActive("Bedroom");
               }}
-              label={'Bedroom'}
-              active={active === 'Bedroom'}
+              label={"Bedroom"}
+              active={active === "Bedroom"}
             />
             <Button
               onClick={() => {
                 setPart(patioImages);
-                setActive('Patio');
+                setActive("Patio");
               }}
-              label={'Patio'}
-              active={active === 'Patio'}
+              label={"Patio"}
+              active={active === "Patio"}
             />
             <Button
               onClick={() => {
                 setPart(miscellaneousImages);
-                setActive('Miscellaneous');
+                setActive("Miscellaneous");
               }}
-              label={'Miscellaneous'}
-              active={active === 'Miscellaneous'}
+              label={"Miscellaneous"}
+              active={active === "Miscellaneous"}
             />
           </div>
           <Splide
-            aria-label='My Favorite Images'
-            className={styles['slider']}
+            aria-label="My Favorite Images"
+            className={styles["slider"]}
+            extensions={{ AutoScroll }}
             options={{
-              gap: '50px',
-              perPage: 3,
+              gap: "10rem",
+              perPage: 1,
+              autoScroll: {
+                pauseOnHover: false,
+                pauseOnFocus: false,
+                rewind: false,
+                speed: 1,
+              },
             }}
           >
             {part.map((image: any) => (

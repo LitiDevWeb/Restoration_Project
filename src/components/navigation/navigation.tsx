@@ -30,8 +30,8 @@ const Navigation = ({ absolute = false }: NavigationProps) => {
         {pathname === '/work' && <div className={styles['active-bar']}></div>}
       </div>
       <div>
-        <Link href='/contact'>contact</Link>
-        {pathname === '/contact' && <div className={styles['active-bar']}></div>}
+        <Link href='/calendar'>calendar</Link>
+        {pathname === '/calendar' && <div className={styles['active-bar']}></div>}
       </div>
     </div>
   );

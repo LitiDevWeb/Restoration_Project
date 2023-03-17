@@ -1,0 +1,45 @@
+@import "@styles";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-calendar {
+  margin-top: 1rem;
+}
+
+.calendar-hint {
+  width: 50rem;
+  display: flex;
+  background-color: $white;
+  justify-content: center;
+  column-gap: 2rem;
+  padding: 1.5rem 0rem;
+}
+
+.hint-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.5rem;
+  font-weight: 600;
+}
+
+.available-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 1px solid;
+  background-color: $white;
+}
+
+.not-available-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 1px solid;
+  background-color: $primary;
+}
