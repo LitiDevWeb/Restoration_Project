@@ -1,0 +1,71 @@
+@import "@styles";
+
+.day-box {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+
+  label {
+    font-size: $label-medium;
+    font-weight: 600;
+  }
+
+  svg {
+    color: $alert;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  svg:hover {
+    transform: translateY(-1px);
+    cursor: pointer;
+  }
+
+  .day-date {
+    font-weight: 600;
+    font-family: monospace;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.from-to-box {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+
+  label {
+    font-size: $label-medium;
+    font-weight: 600;
+  }
+
+  svg {
+    color: $alert;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  svg:hover {
+    transform: translateY(-1px);
+    cursor: pointer;
+  }
+
+  .from-to-date {
+    font-weight: 600;
+    font-family: monospace;
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
+.weekend-box {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  margin-top: 3rem;
+
+  label {
+    font-size: $body-small;
+    font-family: monospace;
+  }
+}

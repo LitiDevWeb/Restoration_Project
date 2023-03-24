@@ -78,7 +78,7 @@ const Calendar = ({ data }: any) => {
   return (
     <div>
       <Navbar />
-      <Container page="calendar" calculatedHeight>
+      <Container page="calendar" moreCalculatedHeight>
         <Navigation />
         <PageTitle>
           <>

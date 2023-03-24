@@ -1,0 +1,153 @@
+@import "@styles";
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.react-calendar {
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.calendar-hint {
+  width: 50rem;
+  display: flex;
+  background-color: $white;
+  justify-content: center;
+  column-gap: 2rem;
+  padding: 1.5rem 0rem;
+  margin-left: 2rem;
+
+  @media (width < $breakpoint-width-tablet) {
+    width: 30rem !important;
+  }
+
+  @media (width < $breakpoint-width-mobile) {
+    width: 20rem !important;
+  }
+}
+
+.hint-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.5rem;
+  font-weight: 600;
+}
+
+.available-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 1px solid;
+  background-color: $white;
+}
+
+.not-available-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  border: 1px solid;
+  background-color: $primary;
+}
+
+.calendar-form {
+  width: 50rem;
+  height: 37rem;
+  background-color: $white;
+  margin-top: 2rem;
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+
+  .update-title {
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      width: 10rem;
+      padding: 1rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      color: $white;
+      cursor: pointer;
+      border: 1px solid;
+      background-color: $primary;
+      box-shadow: $shadow-box-basic;
+      margin-bottom: 1rem;
+      margin-right: 2rem;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.days {
+  margin-top: 2rem;
+
+  .days-title {
+    font-weight: 600;
+    font-size: $label-large;
+  }
+
+  .days-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+}
+
+.weeks {
+  margin-top: 2rem;
+
+  .weeks-title {
+    font-weight: 600;
+    font-size: $label-large;
+  }
+
+  .weeks-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+}
+
+.months {
+  margin-top: 2rem;
+
+  .months-title {
+    font-weight: 600;
+    font-size: $label-large;
+  }
+
+  .months-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+}
+
+.week-ends {
+  label {
+    font-weight: 600;
+    font-size: $label-large;
+    margin-right: 2rem;
+  }
+
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+}

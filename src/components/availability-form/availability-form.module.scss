@@ -1,0 +1,80 @@
+@import "@styles";
+
+.container {
+  width: 52rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (width < $breakpoint-width-tablet) {
+    width: 32rem;
+  }
+
+  @media (width < $breakpoint-width-mobile) {
+    width: fit-content;
+  }
+}
+
+.header {
+  font-size: $body-small;
+  font-weight: 600;
+}
+
+.form {
+  display: flex;
+  height: 28rem;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  button {
+    width: 10rem;
+    box-shadow: $shadow-box-basic;
+  }
+
+  svg {
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  svg:hover {
+    color: $alert;
+  }
+}
+
+.form-types {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 4rem;
+}
+
+.line {
+  display: flex;
+  column-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  @media (width < $breakpoint-width-mobile) {
+    display: block;
+  }
+
+  label {
+    font-size: $label-large;
+    font-weight: 600;
+  }
+}
+
+.date-picker-input {
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+
+  input {
+    width: fit-content;
+  }
+}

@@ -18,6 +18,14 @@
   justify-content: center;
   column-gap: 2rem;
   padding: 1.5rem 0rem;
+
+  @media (width < $breakpoint-width-tablet) {
+    width: 30rem !important;
+  }
+
+  @media (width < $breakpoint-width-mobile) {
+    width: 20rem !important;
+  }
 }
 
 .hint-line {

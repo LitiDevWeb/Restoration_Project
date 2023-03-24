@@ -2,8 +2,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { PrismaClient } from "@prisma/client";
-import { checkHash } from "@webapphelpers/encryption/encrypt";
-import { signToken } from "@webapphelpers/encryption/jwt";
+import { checkHash } from "@webapp/helpers/encryption/encrypt";
+import { signToken } from "@webapp/helpers/encryption/jwt";
 
 const prisma = new PrismaClient();
 

@@ -13,6 +13,7 @@ import { bathroomImages } from "@webapp/helpers/get-images/get-bathroom";
 import Button from "@webapp/components/button/button";
 
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
+import PageTitle from "@webapp/components/page-title/page-title";
 
 const Work = () => {
   const [part, setPart] = useState(kitchenImages);
@@ -21,8 +22,13 @@ const Work = () => {
   return (
     <div>
       <Navbar />
-      <Container page="work" calculatedHeight>
+      <Container page="work" moreCalculatedHeight>
         <Navigation />
+        <PageTitle>
+          <>
+            Our <span>work</span>
+          </>
+        </PageTitle>
         <div className={styles["work"]}>
           <div className={styles["filters"]}>
             <Button
@@ -71,7 +77,6 @@ const Work = () => {
             className={styles["slider"]}
             extensions={{ AutoScroll }}
             options={{
-              gap: "10rem",
               perPage: 1,
               autoScroll: {
                 pauseOnHover: false,

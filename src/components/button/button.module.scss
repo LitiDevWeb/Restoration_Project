@@ -1,16 +1,28 @@
-@import '@styles';
+@import "@styles";
 
 .container {
   padding: 0.8rem 1.5rem;
   background-color: $primary;
   color: $white;
-  font-size: $body-large;
+  font-size: $body-small;
   font-weight: 600;
   cursor: pointer;
   opacity: 0.7;
   transition-duration: 0.3s;
   border: none;
   border-radius: 2px;
+  display: flex;
+  justify-content: center;
+
+  @media (width < $breakpoint-width-tablet) {
+    padding: 0.6rem 1rem;
+    font-size: $body-small;
+  }
+
+  @media (width < $breakpoint-width-mobile) {
+    padding: 0.4rem 0.4rem;
+    font-size: $label-medium;
+  }
 }
 
 .active {

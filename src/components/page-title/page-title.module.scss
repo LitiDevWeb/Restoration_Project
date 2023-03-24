@@ -1,9 +1,10 @@
-@import '@styles';
+@import "@styles";
 
 .text {
   font-size: $headline-large;
   font-weight: 600;
   text-transform: uppercase;
+  margin: 1rem 0rem;
 
   span {
     color: $primary;
