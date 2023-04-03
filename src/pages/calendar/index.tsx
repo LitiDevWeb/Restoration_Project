@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import Container from "@webapp/components/container/container";
 import Navbar from "@webapp/components/navbar/navbar";
 import Navigation from "@webapp/components/navigation/navigation";
@@ -17,6 +17,8 @@ dayjs.extend(isBetween);
 const TIMESTAMP_FORMAT = "YYYY-MM-DD";
 
 const Calendar = ({ data }: any) => {
+  const [loading, setLoading] = useState(false);
+
   const checkIfUnavailable = (date: any) => {
     const currentDate = dayjs(date);
     const formattedCurrentDate = currentDate.format(TIMESTAMP_FORMAT);

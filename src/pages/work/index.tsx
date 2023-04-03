@@ -14,6 +14,7 @@ import Button from "@webapp/components/button/button";
 
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import PageTitle from "@webapp/components/page-title/page-title";
+import Image from "next/image";
 
 const Work = () => {
   const [part, setPart] = useState(kitchenImages);
@@ -88,7 +89,9 @@ const Work = () => {
           >
             {part.map((image: any) => (
               <SplideSlide key={image.src}>
-                <img src={image.src} alt={`image-${image.src}`} />
+                <div className={styles["part-image-container"]}>
+                  <Image src={image.src} alt={`image-${image.src}`} fill />
+                </div>
               </SplideSlide>
             ))}
           </Splide>

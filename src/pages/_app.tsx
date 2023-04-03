@@ -1,4 +1,5 @@
 import { ToastContainer } from "react-toastify";
+import NextNProgress from "nextjs-progressbar";
 
 import "@webapp/styles/globals.scss";
 import "@fontsource/montserrat";
@@ -9,6 +10,7 @@ import type { AppProps } from "next/app";
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <>
+    <NextNProgress color="orange" />
     <Component {...pageProps} />;
     <ToastContainer
       position="bottom-center"
