@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - webnet
+
+  codebase:
+    build: ./
+    command: bash -c "npx prisma generate && npx prisma migrate dev --name init && npx prisma db seed && npm run build && npm run start"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: "postgres://admin:uXBjww5vtjqSUX4yu4IGNlIa@postgres:5432/restoration"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - webnet
+    restart: on-failure
+
+networks:
+  webnet:
