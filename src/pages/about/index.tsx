@@ -7,13 +7,7 @@ import styles from "./about.module.scss";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import classNames from "classnames";
 
-const RoundNumber = ({
-  number,
-  vertical = true,
-}: {
-  number: string;
-  vertical?: boolean;
-}) => {
+const RoundNumber = ({ number, vertical = true }: { number: string; vertical?: boolean }) => {
   return (
     <div>
       <div className={styles["round-number-container"]}>
@@ -49,12 +43,7 @@ const About = () => {
           </div>
           <div className={styles["about"]}>
             <div className={styles["image-container"]}>
-              <Image
-                alt="logo"
-                src={"/images/Salim.png"}
-                width={1920}
-                height={1080}
-              />
+              <Image alt="logo" src={"/images/Salim.png"} width={1920} height={1080} />
             </div>
             <div className={styles["text-container"]}>
               <div className={styles["subtext-container"]}>
@@ -62,10 +51,7 @@ const About = () => {
                   <span>Welcome to</span>
                   <p>Fennec Restoration and Remodeling</p>
                 </div>
-                <p className={styles["description"]}>
-                  We are a licensed, bonded and insured residential contractors
-                  based in phoenix Arizona.
-                </p>
+                <p className={styles["description"]}>We are a licensed, bonded and insured residential contractors based in phoenix Arizona.</p>
                 <div className={styles["work-attributes"]}>
                   <WorkLine text="High Quality Work." />
                   <WorkLine text="Remodeling Experts." />
@@ -102,12 +88,7 @@ const About = () => {
             <div className={styles["work-image"]}>
               <div>
                 <div className={styles["yellow-banner"]}></div>
-                <Image
-                  alt="logo"
-                  src={"/images/work-before-after.png"}
-                  width={1920}
-                  height={1080}
-                />
+                <Image alt="logo" src={"/images/work-before-after.png"} width={1920} height={1080} />
               </div>
             </div>
           </div>
