@@ -6,13 +6,17 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log("Seeding");
-  await prisma.admin.create({
-    data: {
-      name: process.env.ADMIN_NAME as string,
-      email: process.env.ADMIN_EMAIL as string,
-      password: await hash(process.env.ADMIN_PASSWORD as string),
-    },
-  });
+  try {
+    await prisma.admin.create({
+      data: {
+        name: process.env.ADMIN_NAME as string,
+        email: process.env.ADMIN_EMAIL as string,
+        password: await hash(process.env.ADMIN_PASSWORD as string),
+      },
+    });
+  } catch (err) {
+    console.log("Admin already exists.");
+  }
 }
 
 main()
