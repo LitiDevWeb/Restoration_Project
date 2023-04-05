@@ -43,7 +43,7 @@ const About = () => {
           </div>
           <div className={styles["about"]}>
             <div className={styles["image-container"]}>
-              <Image alt="logo" src={"/images/Salim.png"} width={1920} height={1080} />
+              <Image alt="logo" src={"/images/salim.png"} width={1920} height={1080} />
             </div>
             <div className={styles["text-container"]}>
               <div className={styles["subtext-container"]}>
