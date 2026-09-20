@@ -1,0 +1,59 @@
+@import '@styles';
+
+.section {
+  @include section(6.5rem);
+
+  background-color: $sand;
+}
+
+.inner {
+  @include container(1320px);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.step {
+  position: relative;
+  padding: 2rem 1.75rem 2.25rem;
+  background-color: $white;
+  border-top: 2px solid $gold;
+
+  @include mobile {
+    padding: 1.6rem 1.4rem;
+  }
+}
+
+.step-number {
+  display: block;
+  margin-bottom: 1.15rem;
+  font-family: $font-display;
+  font-size: 2.35rem;
+  line-height: 1;
+  color: rgba(201, 162, 77, 0.55);
+}
+
+.step-title {
+  @include heading-serif($fs-h4);
+}
+
+.step-text {
+  margin-top: 0.7rem;
+  font-size: 0.94rem;
+  line-height: $leading-relaxed;
+  color: $text-body;
+}

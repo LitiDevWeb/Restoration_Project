@@ -1,0 +1,70 @@
+@import '@styles';
+
+.hero {
+  position: relative;
+  background-color: $charcoal-900;
+  color: $white;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center 45%;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(112deg, rgba(9, 11, 13, 0.95) 0%, rgba(9, 11, 13, 0.78) 45%, rgba(9, 11, 13, 0.5) 100%),
+    linear-gradient(180deg, rgba(9, 11, 13, 0.45) 0%, rgba(9, 11, 13, 0.85) 100%);
+}
+
+.inner {
+  @include container(1320px);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 6rem;
+  padding-bottom: 5.25rem;
+
+  @include tablet {
+    padding-top: 4rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+.eyebrow {
+  @include eyebrow;
+
+  margin-bottom: 1.25rem;
+  color: $gold-light;
+}
+
+.title {
+  @include heading-serif($fs-display);
+
+  max-width: 44rem;
+  color: $white;
+}
+
+.lede {
+  max-width: 40rem;
+  margin-top: 1.4rem;
+  font-size: $fs-lead;
+  line-height: $leading-relaxed;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2.25rem;
+}

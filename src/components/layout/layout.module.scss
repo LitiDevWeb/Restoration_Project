@@ -1,0 +1,25 @@
+@import '@styles';
+
+.main {
+  display: block;
+}
+
+.skip-link {
+  @include focus-ring;
+
+  position: fixed;
+  top: 0.75rem;
+  left: -100vw;
+  z-index: 500;
+  padding: 0.85rem 1.25rem;
+  background-color: $white;
+  font-family: $font-body;
+  font-size: 0.85rem;
+  font-weight: $weight-bold;
+  color: $text-strong;
+  text-decoration: none;
+
+  &:focus {
+    left: 0.75rem;
+  }
+}

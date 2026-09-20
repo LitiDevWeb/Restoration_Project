@@ -1,38 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Fennec Restoration & Remodeling — website
 
-## Getting Started
+Marketing and lead-generation site for **Fennec Restoration & Remodeling LLC**, a licensed Arizona
+general contractor (ROC 355657) serving the Phoenix Valley and surrounding areas.
 
-First, run the development server:
+## Stack
+
+- Next.js (Pages Router) + React 18 + TypeScript
+- SCSS Modules on top of shared design tokens (`src/styles/`)
+- Prisma (PostgreSQL) for the crew availability calendar
+- Axios for the estimate endpoint transport
+
+## Commands
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+npm run dev      # local development on http://localhost:3000
+npm run build    # production build
+npm run start    # serve the production build
+npm run lint     # ESLint (next lint)
+npx tsc --noEmit -p tsconfig.json   # type check
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Routes
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+| Route | Purpose |
+| --- | --- |
+| `/` | Permanent redirect to `/home` (the canonical home URL) |
+| `/contact` | Permanent redirect to `/estimate` (legacy URL, kept for inbound links) |
+| `/home` | Conversion-focused landing page |
+| `/services` | Core and specialized service catalog |
+| `/work` | Filterable project gallery with before/after comparisons |
+| `/about` | Company narrative, credentials and process |
+| `/estimate` | Free estimate request form |
+| `/calendar` | Crew availability calendar (reads live unavailabilities) |
+| `/sitemap.xml`, `/robots.txt` | Search engine directives |
+| `/admin` | Internal booking tool (not linked publicly, disallowed in `robots.txt`) |
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Content and data
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+All copy, navigation, services, FAQs and NAP details live in data files — edit them there, never in
+components:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- `src/data/site.ts` — company details, navigation, services, process, FAQs
+- `src/data/projects.ts` — projects, photo stages (before / progress / after) and gallery stats
+- `src/data/schema.ts` — JSON-LD structured data helpers
 
-## Learn More
+## Environment variables
 
-To learn more about Next.js, take a look at the following resources:
+Copy `.env.example` to `.env` and fill in the values. The estimate form works with **any one** of the
+three transports below — the endpoint tries them in order and returns an honest `503 not_configured`
+(with phone and email fallbacks) when none is set, so a misconfigured form is never reported as a
+successful submission.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Variable | Purpose |
+| --- | --- |
+| `WEB3FORMS_ACCESS_KEY` | Preferred transport (web3forms.com access key) |
+| `FORMSPREE_FORM_ID` | Fallback transport (Formspree form id) |
+| `ESTIMATE_WEBHOOK_URL` | Final fallback (JSON POST webhook, e.g. Zapier/Make) |
+| `DATABASE_URL`, `POSTGRES_*` | Prisma connection for the availability calendar |
+| `JWT_KEY` | Signing key for the `/admin` API routes |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Editing notes
 
-## Deploy on Vercel
+- Fonts are self-hosted: the woff2 files in `public/fonts/` are copied out of the `@fontsource/*`
+  packages so only the latin subset and the four weights actually used ship to browsers. The
+  `@font-face` rules live in `src/styles/fonts.scss` (imported once from `globals.scss`) and the two
+  above-the-fold files are preloaded in `_document.tsx`. If you need another weight, copy its
+  `latin-<weight>-normal.woff2` from the package into `public/fonts/` and add a matching `@font-face`
+  block instead of importing the package in JS.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Both `/` and `/home` resolve to the same page; `/home` is the canonical URL used in canonicals,
+  the sitemap and navigation.
+- Photos are portrait-heavy, so gallery cards use 4:5 frames (3:4 on mobile) and the dialog viewer uses
+  4:3 (3:4 on mobile).
+- Every photo carries reviewed alt text and a truthful stage label — do not relabel a `progress` photo
+  as `after`.

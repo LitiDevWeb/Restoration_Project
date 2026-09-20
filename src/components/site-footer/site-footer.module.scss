@@ -1,0 +1,140 @@
+@import '@styles';
+
+.footer {
+  background-color: $charcoal-900;
+  color: $text-on-dark;
+}
+
+.inner {
+  @include container(1320px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 0.7fr));
+  gap: 3rem;
+  padding-top: 4.5rem;
+  padding-bottom: 3.5rem;
+
+  @include laptop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    padding-top: 3.25rem;
+  }
+}
+
+.brand {
+  max-width: 26rem;
+}
+
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.logo-mark {
+  font-family: $font-display;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: $white;
+}
+
+.logo-sub {
+  @include eyebrow;
+
+  margin-top: 0.4rem;
+  font-size: 0.6rem;
+  color: $gold;
+}
+
+.blurb {
+  margin-top: 1.35rem;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: $text-on-dark-muted;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+    color: $text-on-dark;
+  }
+
+  svg {
+    flex-shrink: 0;
+    color: $gold;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.25s ease;
+
+    &:hover {
+      color: $gold-light;
+    }
+  }
+}
+
+.column {
+  &-title {
+    @include eyebrow;
+
+    margin-bottom: 1.35rem;
+    font-size: 0.66rem;
+    color: $gold-light;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    font-size: 0.9rem;
+    color: $text-on-dark;
+    text-decoration: none;
+    transition: color 0.25s ease;
+
+    &:hover {
+      color: $gold-light;
+    }
+  }
+}
+
+.bottom {
+  @include container(1320px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.65rem;
+  padding-bottom: 1.65rem;
+  border-top: 1px solid $line-dark;
+  font-size: 0.78rem;
+  color: $text-on-dark-muted;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

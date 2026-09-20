@@ -1,53 +1,68 @@
-import Container from '@webapp/components/container/container';
-import Navbar from '@webapp/components/navbar/navbar';
-import Navigation from '@webapp/components/navigation/navigation';
-import styles from './home.module.scss';
+import AboutPreview from '@webapp/components/about-preview/about-preview';
+import EstimateSection from '@webapp/components/estimate-section/estimate-section';
+import Faq from '@webapp/components/faq/faq';
+import Hero from '@webapp/components/hero/hero';
+import Layout from '@webapp/components/layout/layout';
+import ProcessSteps from '@webapp/components/process-steps/process-steps';
+import ProjectGallery from '@webapp/components/project-gallery/project-gallery';
+import Seo from '@webapp/components/seo/seo';
+import ServiceGrid from '@webapp/components/service-grid/service-grid';
+import WhyFennec from '@webapp/components/why-fennec/why-fennec';
+import { featuredProjectIds, projects, type Project } from '@webapp/data/projects';
+import { faqSchema, localBusinessSchema, websiteSchema } from '@webapp/data/schema';
+import { faqs, site } from '@webapp/data/site';
 
-import { Splide, SplideSlide } from '@splidejs/react-splide';
+const HOME_FAQ_COUNT = 4;
 
-export default function Home() {
+const Home = () => {
+  const featured = featuredProjectIds
+    .map((id) => projects.find((project) => project.id === id))
+    .filter((project): project is Project => Boolean(project));
+
   return (
-    <div>
-      <Navbar />
-      <Navigation absolute />
-      <Splide aria-label='My Favorite Images' className={styles['slider']}>
-        <SplideSlide>
-          <Container page={'home-A'} calculatedHeight>
-            <div className={styles['home-container']}>
-              <p className={styles['home-title']}>
-                <span>fennec</span> restoration & remodeling
-              </p>
-              <p className={styles['home-description']}>
-                Our business is multidisciplinary, going from conception to execution, where the owner is an architect willing to offer his international experience to raise the
-                standards of your living.
-              </p>
-            </div>
-          </Container>
-        </SplideSlide>
-        <SplideSlide>
-          <Container page={'home-B'} calculatedHeight>
-            <div className={styles['home-container']}>
-              <p className={styles['home-title']}>
-                <span>renovation</span> for every budget
-              </p>
-              <p className={styles['home-description']}>We believe that a budget work can also be a quality work.</p>
-            </div>
-          </Container>
-        </SplideSlide>
-        <SplideSlide>
-          <Container page={'home-C'} calculatedHeight>
-            <div className={styles['home-container']}>
-              <p className={styles['home-title']}>
-                <span>restore</span> and remodel your dream house
-              </p>
-              <p className={styles['home-description']}>
-                We understand that quality is in detail, although everybody has its own definition of quality job, we always give the last word to the customer in order to meet
-                their expectations.
-              </p>
-            </div>
-          </Container>
-        </SplideSlide>
-      </Splide>
-    </div>
+    <Layout>
+      <Seo
+        description="Fennec Restoration & Remodeling LLC is a licensed Phoenix Valley general contractor for kitchen and bathroom remodels, room additions, outdoor living and restoration. ROC 355657. Free itemized estimates."
+        path="/home"
+        structuredData={[localBusinessSchema, websiteSchema, faqSchema(faqs.slice(0, HOME_FAQ_COUNT))]}
+        title="Remodeling, Additions & Restoration in the Phoenix Valley"
+      />
+
+      <Hero
+        highlights={[
+          'Free walkthrough and itemized estimate',
+          'Permits, trades and inspections handled',
+          `Call or text ${site.phoneDisplay}`,
+        ]}
+        lede="One licensed Arizona general contractor for kitchens, bathrooms, additions, outdoor living and restoration work — with a written scope, a real schedule and a clean job site. Serving the Phoenix Valley and surrounding areas."
+        title={
+          <>
+            Big or small — <span>we do it all.</span>
+          </>
+        }
+      />
+
+      <ServiceGrid />
+
+      <WhyFennec />
+
+      <ProjectGallery
+        columns={3}
+        headingEyebrow="Featured projects"
+        headingLede="Real job sites, photographed before, during and after the work. Open any project to walk through the full set or compare the before and after side by side."
+        items={featured}
+        showFilters={false}
+      />
+
+      <ProcessSteps />
+
+      <AboutPreview />
+
+      <Faq limit={HOME_FAQ_COUNT} />
+
+      <EstimateSection />
+    </Layout>
   );
-}
+};
+
+export default Home;

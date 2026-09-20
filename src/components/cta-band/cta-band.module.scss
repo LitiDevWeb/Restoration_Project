@@ -1,0 +1,54 @@
+@import '@styles';
+
+.band {
+  position: relative;
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
+  background-color: $charcoal-700;
+  background-image: linear-gradient(120deg, rgba(201, 162, 77, 0.16) 0%, rgba(201, 162, 77, 0) 55%);
+  color: $white;
+
+  @include tablet {
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
+  }
+}
+
+.inner {
+  @include container(1080px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  @include eyebrow;
+
+  color: $gold-light;
+}
+
+.title {
+  @include heading-serif($fs-h2);
+
+  margin-top: 1.1rem;
+  max-width: 42rem;
+  color: $white;
+}
+
+.lede {
+  margin-top: 1.25rem;
+  max-width: 38rem;
+  font-size: $fs-lead;
+  line-height: $leading-relaxed;
+  color: $text-on-dark;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}

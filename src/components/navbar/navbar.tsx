@@ -30,7 +30,7 @@ const Navbar = () => {
     <div className={styles["container"]}>
       <div className={styles["logo"]}>
         <Image className={styles["home-logo"]} onClick={GoHome} alt="logo" src={"/images/logo.png"} width={LOGO_SIZE} height={LOGO_SIZE} />
-        <p>Residentials Contractor ROC 341400</p>
+        <p>Residential Contractor ROC 355657</p>
       </div>
       <div className={styles["contact"]}>
         <InfoBox icon={<FaPhoneAlt size={18} />} value={"(602) 245 - 1768"} />

@@ -1,0 +1,98 @@
+@import '@webapp/styles/typography.scss';
+@import '@webapp/styles/colors.scss';
+@import '@webapp/styles/display.scss';
+
+// Breakpoints (max-width, mobile-first exceptions are handled inline)
+@mixin mobile {
+  @media (max-width: $breakpoint-width-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $breakpoint-width-tablet) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (max-width: $breakpoint-width-laptop) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: ($breakpoint-width-tablet + 1px)) {
+    @content;
+  }
+}
+
+// Layout
+@mixin container($max: 1240px) {
+  width: 100%;
+  max-width: $max;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+
+  @include mobile {
+    padding-left: 1.125rem;
+    padding-right: 1.125rem;
+  }
+}
+
+@mixin section($block: 6.5rem) {
+  padding-top: $block;
+  padding-bottom: $block;
+
+  @include tablet {
+    padding-top: calc(#{$block} * 0.68);
+    padding-bottom: calc(#{$block} * 0.68);
+  }
+}
+
+// Typography helpers
+@mixin eyebrow {
+  font-family: $font-body;
+  font-size: $fs-eyebrow;
+  font-weight: $weight-bold;
+  letter-spacing: $tracking-widest;
+  text-transform: uppercase;
+}
+
+@mixin heading-serif($size: $fs-h2) {
+  font-family: $font-display;
+  font-size: $size;
+  font-weight: $weight-regular;
+  line-height: $leading-snug;
+  letter-spacing: $tracking-tight;
+}
+
+// Interaction
+@mixin focus-ring($color: $gold) {
+  outline: 2px solid $color;
+  outline-offset: 3px;
+}
+
+@mixin gold-rule($width: 64px) {
+  content: '';
+  display: block;
+  width: $width;
+  height: 2px;
+  background: linear-gradient(90deg, $gold, rgba(201, 162, 77, 0));
+}
+
+@mixin card-shadow {
+  box-shadow: 0 18px 40px rgba(9, 11, 13, 0.1);
+}
+
+@mixin card-shadow-hover {
+  box-shadow: 0 28px 60px rgba(9, 11, 13, 0.18);
+}
+
+@mixin truncate($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

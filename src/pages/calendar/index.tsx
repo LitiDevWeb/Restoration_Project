@@ -1,119 +1,195 @@
-import { memo, useState } from "react";
-import Container from "@webapp/components/container/container";
-import Navbar from "@webapp/components/navbar/navbar";
-import Navigation from "@webapp/components/navigation/navigation";
-import ReactCalendar from "react-calendar";
-import styles from "./calendar.module.scss";
-import isBetween from "dayjs/plugin/isBetween";
-import PageTitle from "@webapp/components/page-title/page-title";
-import axios from "axios";
-import dayjs from "dayjs";
+import type { GetServerSideProps } from 'next';
+import axios from 'axios';
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+import ReactCalendar from 'react-calendar';
 
-import { UnavailabilityType } from "@prisma/client";
-import { API_URL } from "@webapp/constants";
+import CtaBand from '@webapp/components/cta-band/cta-band';
+import CtaLink from '@webapp/components/cta/cta-link';
+import Layout from '@webapp/components/layout/layout';
+import PageHero from '@webapp/components/page-hero/page-hero';
+import Seo from '@webapp/components/seo/seo';
+import { breadcrumbSchema, localBusinessSchema } from '@webapp/data/schema';
+import { site } from '@webapp/data/site';
+import heroImage from '@images/miscellaneous/E2.jpg';
+import styles from './calendar.module.scss';
 
 dayjs.extend(isBetween);
 
-const TIMESTAMP_FORMAT = "YYYY-MM-DD";
+const TIMESTAMP_FORMAT = 'YYYY-MM-DD';
 
-const Calendar = ({ data }: any) => {
-  const [loading, setLoading] = useState(false);
+const UNAVAILABILITY_TYPES = ['DAY', 'WEEK', 'MONTH', 'FROM_TO', 'WEEK_END'] as const;
 
-  const checkIfUnavailable = (date: any) => {
-    const currentDate = dayjs(date);
-    const formattedCurrentDate = currentDate.format(TIMESTAMP_FORMAT);
+type UnavailabilityType = (typeof UNAVAILABILITY_TYPES)[number];
 
-    for (const row of data) {
-      switch (row.type) {
-        case UnavailabilityType.DAY:
-          if (row.value.day === formattedCurrentDate) {
-            return true;
-          }
-          break;
-        case UnavailabilityType.WEEK:
-          if (
-            dayjs(formattedCurrentDate).isBetween(
-              dayjs(row.value.from).subtract(1, "day").format(TIMESTAMP_FORMAT),
-              dayjs(row.value.to).add(1, "day").format(TIMESTAMP_FORMAT),
-              "day"
-            )
-          ) {
-            return true;
-          }
-          break;
-        case UnavailabilityType.MONTH:
-          if (
-            dayjs(formattedCurrentDate).isBetween(
-              dayjs(row.value.from).subtract(1, "day").format(TIMESTAMP_FORMAT),
-              dayjs(row.value.to).add(1, "day").format(TIMESTAMP_FORMAT),
-              "day"
-            )
-          ) {
-            return true;
-          }
-          break;
-        case UnavailabilityType.FROM_TO:
-          if (
-            dayjs(formattedCurrentDate).isBetween(
-              dayjs(row.value.from).subtract(1, "day").format(TIMESTAMP_FORMAT),
-              dayjs(row.value.to).add(1, "day").format(TIMESTAMP_FORMAT),
-              "day"
-            )
-          ) {
-            return true;
-          }
-          break;
-        case UnavailabilityType.WEEK_END:
-          if (currentDate.day() === 6 || currentDate.day() === 0) {
-            return true;
-          }
-          break;
-
-        default:
-          break;
-      }
-    }
-
-    return false;
-  };
-
-  return (
-    <div>
-      <Navbar />
-      <Container page="calendar" moreCalculatedHeight>
-        <Navigation />
-        <PageTitle>
-          <>
-            Check out our <span>availabilities</span>
-          </>
-        </PageTitle>
-        <div className={styles["container"]}>
-          <ReactCalendar
-            className={styles["react-calendar"]}
-            minDate={new Date(dayjs().format(TIMESTAMP_FORMAT))}
-            tileDisabled={(row) => checkIfUnavailable(row.date)}
-            locale={"en"}
-          />
-          <div className={styles["calendar-hint"]}>
-            <div className={styles["hint-line"]}>
-              <div className={styles["available-circle"]}></div>
-              <p>Available</p>
-            </div>
-            <div className={styles["hint-line"]}>
-              <div className={styles["not-available-circle"]}></div>
-              <p>Not Available</p>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </div>
-  );
+type Unavailability = {
+  id: number;
+  type: UnavailabilityType;
+  value: { day?: string; from?: string; to?: string };
 };
 
-export async function getServerSideProps() {
-  const res = await axios.get(API_URL + "/api/unavailabilities");
-
-  return { props: res.data };
+interface CalendarProps {
+  unavailabilities: Unavailability[];
 }
 
-export default memo(Calendar);
+const isUnavailabilityType = (value: unknown): value is UnavailabilityType =>
+  typeof value === 'string' && UNAVAILABILITY_TYPES.includes(value as UnavailabilityType);
+
+const readString = (record: Record<string, unknown>, key: string) =>
+  typeof record[key] === 'string' ? (record[key] as string) : undefined;
+
+/** The API returns Prisma Json values, so every field is narrowed before it reaches the calendar. */
+const normalize = (rows: unknown): Unavailability[] => {
+  if (!Array.isArray(rows)) return [];
+
+  return rows.flatMap((row) => {
+    if (typeof row !== 'object' || row === null) return [];
+
+    const record = row as Record<string, unknown>;
+    const value =
+      typeof record.value === 'object' && record.value !== null ? (record.value as Record<string, unknown>) : {};
+
+    return [
+      {
+        id: typeof record.id === 'number' ? record.id : 0,
+        type: isUnavailabilityType(record.type) ? record.type : 'DAY',
+        value: { day: readString(value, 'day'), from: readString(value, 'from'), to: readString(value, 'to') },
+      },
+    ];
+  });
+};
+
+/** Mirrors the booking rules stored in the admin calendar: single days, weeks, months, ranges and weekends. */
+const isUnavailable = (date: Date, rows: Unavailability[]) => {
+  const currentDate = dayjs(date);
+  const current = currentDate.format(TIMESTAMP_FORMAT);
+
+  return rows.some((row) => {
+    const { day, from, to } = row.value;
+
+    switch (row.type) {
+      case 'DAY':
+        return day === current;
+      case 'WEEK':
+      case 'MONTH':
+      case 'FROM_TO':
+        if (!from || !to) return false;
+
+        return currentDate.isBetween(
+          dayjs(from).subtract(1, 'day').format(TIMESTAMP_FORMAT),
+          dayjs(to).add(1, 'day').format(TIMESTAMP_FORMAT),
+          'day'
+        );
+      case 'WEEK_END':
+        return currentDate.day() === 0 || currentDate.day() === 6;
+      default:
+        return false;
+    }
+  });
+};
+
+const Calendar = ({ unavailabilities }: CalendarProps) => (
+  <Layout>
+    <Seo
+      description={`Check Fennec Restoration availability before you plan your remodel, addition or repair. Licensed Phoenix Valley general contractor, ROC ${site.roc} — call or text ${site.phoneDisplay} to confirm a start date.`}
+      image="/images/miscellaneous/E2.jpg"
+      path="/calendar"
+      structuredData={[
+        localBusinessSchema,
+        breadcrumbSchema([
+          { name: 'Home', path: '/home' },
+          { name: 'Availability', path: '/calendar' },
+        ]),
+      ]}
+      title="Crew Availability & Scheduling"
+    />
+
+    <PageHero
+      eyebrow="Scheduling"
+      image={heroImage}
+      imageAlt="Completed exterior work photographed on a Fennec Restoration job site in the Phoenix Valley"
+      lede="Highlighted days are already committed to scheduled Fennec crews. Pick a range that looks open, then confirm it with us — availability moves as jobs are approved."
+      showCta={false}
+      title={
+        <>
+          Check our <span>availability</span>
+        </>
+      }
+    />
+
+    <section className={styles['section']}>
+      <div className={styles['inner']}>
+        <div className={styles['board']}>
+          <ReactCalendar
+            className={styles['calendar']}
+            locale="en"
+            minDate={new Date(dayjs().format(TIMESTAMP_FORMAT))}
+            tileDisabled={({ date }) => isUnavailable(date, unavailabilities)}
+          />
+
+          <ul className={styles['legend']}>
+            <li>
+              <span aria-hidden="true" className={styles['dot-available']} />
+              Open — no crew committed
+            </li>
+            <li>
+              <span aria-hidden="true" className={styles['dot-booked']} />
+              Booked — crew already scheduled
+            </li>
+          </ul>
+        </div>
+
+        <div className={styles['side']}>
+          <p className={styles['eyebrow']}>How to read this</p>
+          <h2 className={styles['title']}>
+            Availability is a guide, <span>not a promise</span>
+          </h2>
+          <p className={styles['text']}>
+            The calendar reflects jobs the office has already confirmed. Dates can open or close between your visit and
+            your call, so always confirm before you order materials or book time off work.
+          </p>
+
+          <ul className={styles['notes']}>
+            <li>Booked days mean crews are on a committed job — they are not a refusal.</li>
+            <li>Send your target start date with the estimate request and we will match it to the schedule.</li>
+            <li>Emergency repair and restoration work is scheduled outside the calendar — call us directly.</li>
+          </ul>
+
+          <div className={styles['actions']}>
+            <CtaLink href="/estimate" size="md">
+              Request a free estimate
+            </CtaLink>
+            <CtaLink href={site.phoneHref} size="md" variant="outlineDark">
+              Call {site.phoneDisplay}
+            </CtaLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <CtaBand
+      title={
+        <>
+          Have a start date in mind? <span>Let&apos;s check it together.</span>
+        </>
+      }
+    />
+  </Layout>
+);
+
+export const getServerSideProps: GetServerSideProps<CalendarProps> = async ({ req }) => {
+  const host = req.headers.host ?? new URL(site.url).host;
+  const protocol = host.startsWith('localhost') || host.startsWith('127.0.0.1') ? 'http' : 'https';
+
+  try {
+    const response = await axios.get(`${protocol}://${host}/api/unavailabilities`, { timeout: 8000 });
+    const payload = (response.data as { data?: unknown } | undefined)?.data;
+
+    return { props: { unavailabilities: normalize(payload) } };
+  } catch {
+    // A calendar outage must never take the page down: show an empty month and keep the calls to action.
+    return { props: { unavailabilities: [] } };
+  }
+};
+
+export default Calendar;

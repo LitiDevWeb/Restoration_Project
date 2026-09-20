@@ -1,42 +1,60 @@
-import Container from '@webapp/components/container/container';
-import Navbar from '@webapp/components/navbar/navbar';
-import Navigation from '@webapp/components/navigation/navigation';
-import PageTitle from '@webapp/components/page-title/page-title';
-import Image from 'next/image';
-import styles from './services.module.scss';
+import CtaBand from '@webapp/components/cta-band/cta-band';
+import Faq from '@webapp/components/faq/faq';
+import Layout from '@webapp/components/layout/layout';
+import PageHero from '@webapp/components/page-hero/page-hero';
+import ProcessSteps from '@webapp/components/process-steps/process-steps';
+import Seo from '@webapp/components/seo/seo';
+import ServiceGrid from '@webapp/components/service-grid/service-grid';
+import WhyFennec from '@webapp/components/why-fennec/why-fennec';
+import { breadcrumbSchema, localBusinessSchema, servicePageSchema } from '@webapp/data/schema';
+import { coreServices, site } from '@webapp/data/site';
+import heroImage from '@images/bathroom/3.jpg';
 
-const ServiceCard = ({ image, text }: { image: string; text: string }) => {
-  return (
-    <div className={styles['service-card']}>
-      <Image src={image} width={490} height={530} alt={text} />
-      <div className={styles['white-box']}>
-        <p>{text}</p>
-      </div>
-    </div>
-  );
-};
+const Services = () => (
+  <Layout>
+    <Seo
+      description="Kitchen and bathroom remodeling, restoration, room additions, outdoor living and new construction from a licensed Phoenix Valley general contractor. ROC 355657. Free itemized estimates."
+      image="/images/bathroom/3.jpg"
+      path="/services"
+      structuredData={[
+        localBusinessSchema,
+        servicePageSchema(coreServices.map((service) => ({ name: service.title, description: service.summary }))),
+        breadcrumbSchema([
+          { name: 'Home', path: '/home' },
+          { name: 'Services', path: '/services' },
+        ]),
+      ]}
+      title="Remodeling, Restoration & Construction Services"
+    />
 
-const Services = () => {
-  return (
-    <div>
-      <Navbar />
-      <Container page='services'>
-        <Navigation />
-        <div className={styles['services']}>
-          <PageTitle>
-            <>
-              <span>Our</span> Services
-            </>
-          </PageTitle>
-          <div className={styles['card-container']}>
-            <ServiceCard text='Design' image='/images/design.png' />
-            <ServiceCard text='Remodeling' image='/images/remodeling.png' />
-            <ServiceCard text='Restoration' image='/images/restoration.png' />
-          </div>
-        </div>
-      </Container>
-    </div>
-  );
-};
+    <PageHero
+      eyebrow={`${site.classification} · ROC ${site.roc}`}
+      image={heroImage}
+      imageAlt="Finished walk-in shower with large-format tile installed during a Fennec Restoration bathroom remodel"
+      lede="Kitchens, bathrooms, structural repairs, room additions, outdoor structures and ground-up builds — all delivered by the same licensed contractor, with the same written scope and itemized pricing."
+      title={
+        <>
+          Services built around <span>real scopes and real budgets</span>
+        </>
+      }
+    />
+
+    <ServiceGrid />
+
+    <WhyFennec />
+
+    <ProcessSteps />
+
+    <Faq />
+
+    <CtaBand
+      title={
+        <>
+          Not sure which service fits your project? <span>Ask us — we will tell you straight.</span>
+        </>
+      }
+    />
+  </Layout>
+);
 
 export default Services;

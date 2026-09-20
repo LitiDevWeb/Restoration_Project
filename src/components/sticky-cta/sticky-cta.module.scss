@@ -1,0 +1,59 @@
+@import '@styles';
+
+.bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 350;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background-color: rgba(12, 14, 16, 0.97);
+  border-top: 1px solid rgba(201, 162, 77, 0.4);
+  padding-bottom: env(safe-area-inset-bottom);
+  transform: translateY(110%);
+  transition: transform 0.32s ease;
+}
+
+.visible {
+  transform: translateY(0);
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.05rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: $weight-bold;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.call {
+  color: $white;
+}
+
+.estimate {
+  background-color: $gold;
+  color: $charcoal-900;
+}
+
+.spacer {
+  height: 3.65rem;
+}
+
+@include desktop-up {
+  .bar,
+  .spacer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+}

@@ -1,0 +1,135 @@
+@import '@styles';
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 1rem 1.75rem;
+  font-family: $font-body;
+  font-size: 0.86rem;
+  font-weight: $weight-bold;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  @include mobile {
+    padding: 0.9rem 1.25rem;
+    font-size: 0.78rem;
+  }
+}
+
+.primary {
+  background-color: $gold;
+  color: $charcoal-900;
+
+  &:hover {
+    background-color: $gold-light;
+  }
+}
+
+.dark {
+  background-color: $charcoal;
+  color: $white;
+
+  &:hover {
+    background-color: $graphite;
+  }
+}
+
+.light {
+  background-color: $white;
+  color: $charcoal;
+
+  &:hover {
+    background-color: $sand;
+  }
+}
+
+.outline {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.45);
+  color: $white;
+
+  &:hover {
+    border-color: $gold;
+    color: $gold-light;
+  }
+}
+
+.outlineDark {
+  background-color: transparent;
+  border-color: rgba(18, 20, 23, 0.25);
+  color: $text-strong;
+
+  &:hover {
+    border-color: $gold;
+    color: $gold-dark;
+  }
+}
+
+.sm {
+  padding: 0.7rem 1.15rem;
+  font-size: 0.74rem;
+}
+
+.md {
+  padding: 1rem 1.75rem;
+}
+
+.lg {
+  padding: 1.15rem 2.15rem;
+  font-size: 0.92rem;
+}
+
+.block {
+  width: 100%;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: cta-spin 0.7s linear infinite;
+}
+
+@keyframes cta-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .spinner {
+    animation-duration: 1.6s;
+  }
+}

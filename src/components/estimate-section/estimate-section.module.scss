@@ -1,0 +1,98 @@
+@import '@styles';
+
+.section {
+  @include section(6.5rem);
+
+  background-color: $charcoal;
+  color: $white;
+}
+
+.inner {
+  @include container(1320px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 4rem;
+  align-items: start;
+
+  @include laptop {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.intro {
+  position: relative;
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  margin: 3rem 0 0;
+  padding: 2.5rem 0 0;
+  border-top: 1px solid $line-dark;
+  list-style: none;
+
+  li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  a {
+    font-size: 1.08rem;
+    font-weight: $weight-bold;
+    color: $white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 162, 77, 0.55);
+    transition: color 0.25s ease, border-color 0.25s ease;
+
+    &:hover {
+      color: $gold-light;
+      border-color: $gold-light;
+    }
+  }
+
+  p {
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: $text-on-dark-muted;
+  }
+}
+
+.plain {
+  font-size: 1.02rem;
+  font-weight: $weight-bold;
+  color: $white;
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(201, 162, 77, 0.45);
+  color: $gold-light;
+}
+
+.card {
+  padding: 2.5rem 2.25rem 2.25rem;
+  background-color: $white;
+  color: $text-strong;
+  @include card-shadow-hover;
+
+  @include mobile {
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+.card-eyebrow {
+  @include eyebrow;
+
+  margin-bottom: 1.5rem;
+  color: $gold-dark;
+}

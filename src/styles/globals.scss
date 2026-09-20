@@ -1,4 +1,5 @@
 @import "@styles";
+@import "./fonts.scss";
 
 html {
   margin: 0;
@@ -43,12 +44,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 .react-calendar {
-  width: 50rem !important;
+  width: 100% !important;
   max-width: 100%;
   background: white;
   border: 1px solid #a0a096;
-  line-height: 1rem !important;
-  font-family: "Montserrat" !important;
 
   @media (width < $breakpoint-width-tablet) {
     width: 30rem !important;
@@ -93,7 +92,6 @@ body::-webkit-scrollbar-thumb {
   button {
     font-weight: 600;
     font-size: 1rem;
-    font-family: "Montserrat" !important;
   }
 }
 .react-calendar__navigation button {
@@ -112,7 +110,6 @@ body::-webkit-scrollbar-thumb {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 0.75em !important;
-  font-family: "Montserrat" !important;
 }
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.5em;
@@ -137,7 +134,7 @@ body::-webkit-scrollbar-thumb {
 }
 .react-calendar__tile {
   max-width: 100%;
-  padding: 2rem !important;
+  padding: 0.9rem 0.4rem !important;
   background: none;
   text-align: center;
   line-height: 16px;
@@ -187,7 +184,6 @@ body::-webkit-scrollbar-thumb {
 .Toastify__toast-body {
   font-weight: 600;
   font-size: $label-medium;
-  font-family: "Montserrat" !important;
 }
 
 .react-toggle {
@@ -331,3 +327,87 @@ body::-webkit-scrollbar-thumb {
   -moz-box-shadow: 0px 0px 5px 5px #0099e0;
   box-shadow: 0px 0px 5px 5px #0099e0;
 }
+
+// ---------------------------------------------------------------------------
+// 2026 marketing refresh — the public site scrolls with the document instead of
+// inside fixed-height containers, and the base type becomes Manrope.
+// Declared last so these win over the legacy body/html rules above.
+// ---------------------------------------------------------------------------
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: $font-body;
+  color: $text-body;
+  background-color: $white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: $sand;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: $gold;
+  border-radius: 8px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: $text-strong;
+  font-family: $font-display;
+  font-weight: $weight-regular;
+  line-height: $leading-snug;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid $gold;
+  outline-offset: 3px;
+}
+
+::selection {
+  background-color: $gold;
+  color: $charcoal-900;
+}
+
+// React Calendar — align the unavailable days with the brass palette.
+.react-calendar__tile:disabled {
+  background-color: rgba(201, 162, 77, 0.22) !important;
+}
+
+.react-calendar,
+.react-calendar__navigation button,
+.react-calendar__month-view__weekdays,
+.Toastify__toast-body {
+  font-family: $font-body !important;
+}
+

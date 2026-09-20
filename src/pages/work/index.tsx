@@ -1,104 +1,56 @@
-import { useState } from "react";
-import Container from "@webapp/components/container/container";
-import Navbar from "@webapp/components/navbar/navbar";
-import Navigation from "@webapp/components/navigation/navigation";
-import styles from "./work.module.scss";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
+import CtaBand from '@webapp/components/cta-band/cta-band';
+import Layout from '@webapp/components/layout/layout';
+import PageHero from '@webapp/components/page-hero/page-hero';
+import ProjectGallery from '@webapp/components/project-gallery/project-gallery';
+import Seo from '@webapp/components/seo/seo';
+import { galleryStats, projects } from '@webapp/data/projects';
+import { breadcrumbSchema, localBusinessSchema } from '@webapp/data/schema';
+import { site } from '@webapp/data/site';
+import heroImage from '@images/patio/9.jpg';
 
-import { kitchenImages } from "@webapp/helpers/get-images/get-kitchen";
-import { patioImages } from "@webapp/helpers/get-images/get-patio";
-import { miscellaneousImages } from "@webapp/helpers/get-images/get-miscellaneous";
-import { bedroomImages } from "@webapp/helpers/get-images/get-bedroom";
-import { bathroomImages } from "@webapp/helpers/get-images/get-bathroom";
-import Button from "@webapp/components/button/button";
+const Work = () => (
+  <Layout>
+    <Seo
+      description={`Browse ${galleryStats.projects} documented Fennec Restoration projects and ${galleryStats.photos} job site photos from across the Phoenix Valley — kitchens, bathrooms, additions, outdoor living and restoration work, shown before, during and after.`}
+      image="/images/patio/9.jpg"
+      path="/work"
+      structuredData={[
+        localBusinessSchema,
+        breadcrumbSchema([
+          { name: 'Home', path: '/home' },
+          { name: 'Our work', path: '/work' },
+        ]),
+      ]}
+      title="Project Gallery: Kitchens, Bathrooms, Additions & More"
+    />
 
-import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
-import PageTitle from "@webapp/components/page-title/page-title";
-import Image from "next/image";
+    <PageHero
+      eyebrow={`${galleryStats.projects} projects · ${galleryStats.photos} photos`}
+      image={heroImage}
+      imageAlt="Completed covered patio with pavers and a standing-seam roof built by Fennec Restoration"
+      lede="No stock photos and no renders. Every image below was taken on a Fennec job site in the Phoenix Valley — including the rough, unfinished stages most contractors never show you."
+      title={
+        <>
+          Work we have <span>actually finished</span>
+        </>
+      }
+    />
 
-const Work = () => {
-  const [part, setPart] = useState(kitchenImages);
-  const [active, setActive] = useState("Kitchen");
+    <ProjectGallery
+      columns={3}
+      headingEyebrow="Project gallery"
+      headingLede={`Filter by category to find scope similar to yours. Open any project for the full photo set, the written scope of work and a direct before-and-after comparison. ${site.tagline}`}
+      items={projects}
+    />
 
-  return (
-    <div>
-      <Navbar />
-      <Container page="work" moreCalculatedHeight>
-        <Navigation />
-        <PageTitle>
-          <>
-            Our <span>work</span>
-          </>
-        </PageTitle>
-        <div className={styles["work"]}>
-          <div className={styles["filters"]}>
-            <Button
-              onClick={() => {
-                setPart(kitchenImages);
-                setActive("Kitchen");
-              }}
-              label={"Kitchen"}
-              active={active === "Kitchen"}
-            />
-            <Button
-              onClick={() => {
-                setPart(bathroomImages);
-                setActive("Bathroom");
-              }}
-              label={"Bathroom"}
-              active={active === "Bathroom"}
-            />
-            <Button
-              onClick={() => {
-                setPart(bedroomImages);
-                setActive("Bedroom");
-              }}
-              label={"Bedroom"}
-              active={active === "Bedroom"}
-            />
-            <Button
-              onClick={() => {
-                setPart(patioImages);
-                setActive("Patio");
-              }}
-              label={"Patio"}
-              active={active === "Patio"}
-            />
-            <Button
-              onClick={() => {
-                setPart(miscellaneousImages);
-                setActive("Miscellaneous");
-              }}
-              label={"Miscellaneous"}
-              active={active === "Miscellaneous"}
-            />
-          </div>
-          <Splide
-            aria-label="My Favorite Images"
-            className={styles["slider"]}
-            extensions={{ AutoScroll }}
-            options={{
-              perPage: 1,
-              autoScroll: {
-                pauseOnHover: false,
-                pauseOnFocus: false,
-                rewind: false,
-                speed: 1,
-              },
-            }}
-          >
-            {part.map((image: any) => (
-              <SplideSlide key={image.src}>
-                <div className={styles["part-image-container"]}>
-                  <Image src={image.src} alt={`image-${image.src}`} fill />
-                </div>
-              </SplideSlide>
-            ))}
-          </Splide>
-        </div>
-      </Container>
-    </div>
-  );
-};
+    <CtaBand
+      title={
+        <>
+          Want your project to look like this? <span>Let&apos;s scope it out.</span>
+        </>
+      }
+    />
+  </Layout>
+);
 
 export default Work;

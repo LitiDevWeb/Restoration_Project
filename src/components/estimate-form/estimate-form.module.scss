@@ -1,0 +1,223 @@
+@import '@styles';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.35rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.label {
+  font-size: 0.72rem;
+  font-weight: $weight-bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.required {
+  color: $gold-dark;
+}
+
+.input {
+  width: 100%;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid $line-light;
+  border-radius: 0;
+  background-color: $white;
+  font-family: $font-body;
+  font-size: 0.96rem;
+  color: $text-strong;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+  &::placeholder {
+    color: rgba(107, 114, 128, 0.75);
+  }
+
+  &:focus {
+    border-color: $gold;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(201, 162, 77, 0.18);
+  }
+}
+
+.select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, $text-muted 50%),
+    linear-gradient(135deg, $text-muted 50%, transparent 50%);
+  background-position: calc(100% - 1.25rem) 1.25rem, calc(100% - 0.9rem) 1.25rem;
+  background-repeat: no-repeat;
+  background-size: 6px 6px, 6px 6px;
+  padding-right: 2.5rem;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 8rem;
+  line-height: 1.6;
+}
+
+.input-error {
+  border-color: $alert;
+  background-color: rgba(255, 0, 0, 0.03);
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.14);
+  }
+}
+
+.error {
+  font-size: 0.8rem;
+  font-weight: $weight-semibold;
+  color: #b3261e;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: $text-muted;
+}
+
+.radios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 0.95rem;
+  border: 1px solid $line-light;
+  background-color: $white;
+  font-size: 0.86rem;
+  color: $text-body;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+
+  &:has(input:checked) {
+    border-color: $gold;
+    background-color: rgba(201, 162, 77, 0.12);
+  }
+
+  input:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.95rem 1.1rem;
+  border: 1px solid rgba(255, 0, 0, 0.35);
+  background-color: rgba(255, 0, 0, 0.05);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #8c1d18;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+}
+
+.submit-row {
+  margin-top: 0.35rem;
+}
+
+.note {
+  margin-top: 0.9rem;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: $text-muted;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.5rem 0;
+}
+
+.success-icon {
+  color: $success;
+}
+
+.success-title {
+  @include heading-serif($fs-h3);
+}
+
+.success-message {
+  font-size: 1rem;
+  line-height: $leading-relaxed;
+  color: $text-body;
+}
+
+.success-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    padding-left: 1.35rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: $text-body;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0.6em;
+      left: 0.15rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: $gold;
+    }
+  }
+}
+
+.success-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.35rem;
+}

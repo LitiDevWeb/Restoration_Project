@@ -8,3 +8,45 @@ $black: #000000;
 $alert: #ff0000;
 // $warning: #ffffff;
 // $success: #00ff00;
+
+// ---------------------------------------------------------------------------
+// Brand palette — declared after the legacy tokens on purpose, so the refreshed
+// values win everywhere (SCSS last-definition-wins) without touching consumers.
+// ---------------------------------------------------------------------------
+$primary: #c9a24d; // warm brass (replaces the original #f3bf07)
+$secondary: #e0c17e; // light brass
+
+// Dark surfaces
+$charcoal-900: #0c0e10;
+$charcoal: #121417;
+$charcoal-700: #191d21;
+$charcoal-600: #22272c;
+$graphite: #2d3339;
+
+// Light surfaces
+$ivory: #faf8f4;
+$sand: #f1ece3;
+$stone: #ded7cb;
+$line-light: #e6e0d6;
+
+// Brass scale
+$gold: $primary;
+$gold-dark: #a4823a;
+$gold-light: $secondary;
+$gold-tint: rgba(201, 162, 77, 0.14);
+
+// Text
+$text-strong: #121417;
+$text-body: #3f464c;
+$text-muted: #6b7280;
+$text-on-dark: rgba(255, 255, 255, 0.82);
+$text-on-dark-muted: rgba(255, 255, 255, 0.6);
+
+// Lines & overlays
+$line-dark: rgba(255, 255, 255, 0.12);
+$overlay-hero: rgba(9, 11, 13, 0.62);
+$overlay-card: rgba(12, 14, 16, 0.45);
+
+$success: #3f9c62;
+$disabled: #b6b6b6;
+

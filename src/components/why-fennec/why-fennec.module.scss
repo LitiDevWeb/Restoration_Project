@@ -1,0 +1,107 @@
+@import '@styles';
+
+.section {
+  @include section(6.5rem);
+
+  background-color: $charcoal;
+  color: $white;
+}
+
+.inner {
+  @include container(1320px);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 4rem;
+  align-items: start;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.65rem 0;
+    border-top: 1px solid $line-dark;
+
+    &:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+}
+
+.number {
+  flex-shrink: 0;
+  font-family: $font-display;
+  font-size: 1.05rem;
+  color: $gold;
+}
+
+.item-title {
+  @include heading-serif($fs-h4);
+
+  color: $white;
+}
+
+.item-text {
+  margin-top: 0.55rem;
+  font-size: 0.95rem;
+  line-height: $leading-relaxed;
+  color: $text-on-dark-muted;
+}
+
+.media {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 1rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.media-main,
+.media-side {
+  position: relative;
+  overflow: hidden;
+  background-color: $charcoal-700;
+}
+
+.media-main {
+  aspect-ratio: 4 / 3;
+}
+
+.media-side {
+  aspect-ratio: 4 / 5;
+  margin-top: 2.5rem;
+
+  @include mobile {
+    margin-top: 0;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.caption {
+  grid-column: 1 / -1;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: $text-on-dark-muted;
+}

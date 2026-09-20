@@ -1,0 +1,72 @@
+@import '@styles';
+
+.compare {
+  position: relative;
+  overflow: hidden;
+  background-color: $charcoal-700;
+  aspect-ratio: 4 / 3;
+
+  @include mobile {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: $gold;
+  transform: translateX(-1px);
+  pointer-events: none;
+}
+
+.tag-before,
+.tag-after {
+  @include eyebrow;
+
+  position: absolute;
+  bottom: 1rem;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.62rem;
+  background-color: rgba(9, 11, 13, 0.72);
+  color: $white;
+  pointer-events: none;
+}
+
+.tag-before {
+  left: 1rem;
+}
+
+.tag-after {
+  right: 1rem;
+  background-color: rgba(201, 162, 77, 0.92);
+  color: $charcoal-900;
+}
+
+.range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 2px solid $gold;
+    outline-offset: -4px;
+    background-color: rgba(201, 162, 77, 0.08);
+  }
+}

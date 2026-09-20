@@ -1,53 +1,184 @@
-@import "@styles";
+@import '@styles';
 
-.container {
+.section {
+  @include section(5.5rem);
+
+  background-color: $ivory;
+}
+
+.inner {
+  @include container(1240px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 3.5rem;
+  align-items: start;
+
+  @include laptop {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.board {
+  @include card-shadow;
+
+  padding: 2rem;
+  background-color: $white;
+  border: 1px solid $line-light;
+
+  @include mobile {
+    padding: 1.15rem;
+  }
+}
+
+.board .calendar {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+
+  :global(.react-calendar__navigation) {
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  :global(.react-calendar__navigation button) {
+    min-width: 2.5rem;
+    padding: 0.6rem 0.4rem;
+    background-color: transparent;
+    border-radius: 2px;
+    color: $text-strong;
+    font-weight: $weight-bold;
+  }
+
+  :global(.react-calendar__navigation button:enabled:hover),
+  :global(.react-calendar__navigation button:enabled:focus) {
+    background-color: $gold-tint;
+  }
+
+  :global(.react-calendar__navigation__label) {
+    font-family: $font-display;
+    font-size: 1.05rem;
+  }
+
+  :global(.react-calendar__month-view__weekdays) {
+    color: $text-muted;
+    font-size: 0.66rem;
+    font-weight: $weight-bold;
+    letter-spacing: $tracking-wider;
+    text-transform: uppercase;
+
+    abbr {
+      text-decoration: none;
+    }
+  }
+
+  :global(.react-calendar__tile) {
+    color: $text-body;
+    font-size: 0.85rem;
+
+    &:disabled {
+      color: $text-strong;
+      opacity: 1;
+    }
+  }
+
+  :global(.react-calendar__month-view__days__day--neighboringMonth) {
+    color: rgba(63, 70, 76, 0.35);
+  }
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  margin: 1.75rem 0 0;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid $line-light;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: $text-body;
+  }
+}
+
+.dot-available,
+.dot-booked {
+  flex-shrink: 0;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+
+.dot-available {
+  background-color: $white;
+  border: 1px solid $stone;
+}
+
+.dot-booked {
+  background-color: rgba(201, 162, 77, 0.22);
+  border: 1px solid $gold;
+}
+
+.eyebrow {
+  @include eyebrow;
+
+  color: $gold-dark;
+}
+
+.title {
+  @include heading-serif($fs-h3);
+
+  margin: 1rem 0 0;
+  color: $text-strong;
+
+  span {
+    color: $gold-dark;
+  }
+}
+
+.text {
+  margin-top: 1.25rem;
+  font-size: 0.95rem;
+  line-height: $leading-relaxed;
+  color: $text-body;
+}
+
+.notes {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  gap: 0.85rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
 
-.react-calendar {
-  margin-top: 1rem;
-}
+  li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: $text-body;
 
-.calendar-hint {
-  width: 50rem;
-  display: flex;
-  background-color: $white;
-  justify-content: center;
-  column-gap: 2rem;
-  padding: 1.5rem 0rem;
-
-  @media (width < $breakpoint-width-tablet) {
-    width: 30rem !important;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0.55rem;
+      left: 0;
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: $gold;
+      transform: rotate(45deg);
+    }
   }
-
-  @media (width < $breakpoint-width-mobile) {
-    width: 20rem !important;
-  }
 }
 
-.hint-line {
+.actions {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 0.5rem;
-  font-weight: 600;
-}
-
-.available-circle {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 999px;
-  border: 1px solid;
-  background-color: $white;
-}
-
-.not-available-circle {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 999px;
-  border: 1px solid;
-  background-color: $primary;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2rem;
 }

@@ -1,0 +1,108 @@
+@import '@styles';
+
+.section {
+  @include section(6.5rem);
+
+  background-color: $white;
+}
+
+.inner {
+  @include container(1320px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 4.5rem;
+  align-items: center;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.media {
+  position: relative;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  background-color: $charcoal-700;
+  aspect-ratio: 4 / 5;
+
+  @include mobile {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.stats {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: -3.25rem 1.5rem 0;
+  padding: 1.5rem 1.25rem;
+  background-color: $charcoal;
+  color: $white;
+
+  @include mobile {
+    margin: -2.25rem 0.75rem 0;
+    padding: 1.25rem 0.9rem;
+  }
+
+  strong {
+    display: block;
+    font-family: $font-display;
+    font-size: 1.7rem;
+    color: $gold-light;
+  }
+
+  span {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $text-on-dark-muted;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.credentials {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 2.25rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    font-size: 0.96rem;
+    line-height: 1.6;
+    color: $text-body;
+  }
+}
+
+.check {
+  flex-shrink: 0;
+  margin-top: 0.35rem;
+  color: $gold-dark;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}

@@ -1,0 +1,302 @@
+@import '@styles';
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+}
+
+.topbar {
+  background-color: $charcoal-900;
+  color: $text-on-dark-muted;
+  font-size: 0.7rem;
+  font-weight: $weight-semibold;
+  letter-spacing: $tracking-wider;
+  text-transform: uppercase;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.topbar-inner {
+  @include container(1320px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.topbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+
+  svg {
+    color: $gold;
+  }
+}
+
+.bar {
+  position: relative;
+  z-index: 90;
+  background-color: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid $line-light;
+  backdrop-filter: blur(12px);
+  transition: box-shadow 0.3s ease;
+}
+
+.scrolled .bar {
+  box-shadow: 0 14px 34px rgba(9, 11, 13, 0.1);
+}
+
+.bar-inner {
+  @include container(1320px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 4.9rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+}
+
+.logo {
+  height: 46px;
+  width: 46px;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+
+  strong {
+    font-family: $font-display;
+    font-size: 1.45rem;
+    font-weight: $weight-regular;
+    line-height: 1;
+    color: $text-strong;
+  }
+
+  small {
+    @include eyebrow;
+
+    margin-top: 0.35rem;
+    font-size: 0.58rem;
+    color: $text-muted;
+  }
+
+  @include mobile {
+    strong {
+      font-size: 1.25rem;
+    }
+
+    small {
+      font-size: 0.52rem;
+      letter-spacing: $tracking-wide;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.9rem;
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.4rem 0;
+  font-size: 0.78rem;
+  font-weight: $weight-bold;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  color: $text-body;
+  text-decoration: none;
+  transition: color 0.25s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: $gold;
+    transition: width 0.3s ease;
+  }
+
+  &:hover {
+    color: $text-strong;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.active {
+  color: $text-strong;
+
+  &::after {
+    width: 100%;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @include mobile {
+    gap: 0.6rem;
+  }
+}
+
+.phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: $weight-bold;
+  color: $text-strong;
+  text-decoration: none;
+
+  svg {
+    color: $gold-dark;
+  }
+
+  &:hover {
+    color: $gold-dark;
+  }
+
+  @include laptop {
+    display: none;
+  }
+}
+
+.estimate {
+  @include tablet {
+    display: none;
+  }
+}
+
+.burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem;
+  border: 1px solid $line-light;
+  border-radius: 2px;
+  background: none;
+  color: $text-strong;
+  cursor: pointer;
+
+  @include tablet {
+    display: inline-flex;
+  }
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  display: flex;
+  width: min(23rem, 88vw);
+  flex-direction: column;
+  gap: 2rem;
+  padding: 7rem 1.75rem 2rem;
+  overflow-y: auto;
+  background-color: $charcoal;
+  transform: translateX(101%);
+  visibility: hidden;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.42s;
+}
+
+.drawer-open {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s;
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-link {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid $line-dark;
+  font-family: $font-display;
+  font-size: 1.55rem;
+  color: $white;
+  text-decoration: none;
+  transition: color 0.25s ease;
+
+  &:hover {
+    color: $gold-light;
+  }
+}
+
+.drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.drawer-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: $text-on-dark;
+  text-decoration: none;
+
+  svg {
+    color: $gold;
+  }
+
+  &:hover {
+    color: $gold-light;
+  }
+}
+
+.drawer-note {
+  @include eyebrow;
+
+  font-size: 0.62rem;
+  color: $text-on-dark-muted;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 75;
+  border: 0;
+  background-color: rgba(9, 11, 13, 0.55);
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawer-open,
+  .nav-link::after {
+    transition: none;
+  }
+}
