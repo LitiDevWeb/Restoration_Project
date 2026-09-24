@@ -1,5 +1,4 @@
 import AboutPreview from '@webapp/components/about-preview/about-preview';
-import EstimateSection from '@webapp/components/estimate-section/estimate-section';
 import Faq from '@webapp/components/faq/faq';
 import Hero from '@webapp/components/hero/hero';
 import Layout from '@webapp/components/layout/layout';
@@ -34,7 +33,7 @@ const Home = () => {
           'Permits, trades and inspections handled',
           `Call or text ${site.phoneDisplay}`,
         ]}
-        lede="One licensed Arizona general contractor for kitchens, bathrooms, additions, outdoor living and restoration work — with a written scope, a real schedule and a clean job site. Serving the Phoenix Valley and surrounding areas."
+        lede="Comprehensive construction, renovation, and property improvement services tailored to your needs. From transformative renovations to large-scale residential projects, we bring precision, professionalism, and accountability to every job."
         title={
           <>
             Big or small — <span>we do it all.</span>
@@ -59,8 +58,6 @@ const Home = () => {
       <AboutPreview />
 
       <Faq limit={HOME_FAQ_COUNT} />
-
-      <EstimateSection />
     </Layout>
   );
 };

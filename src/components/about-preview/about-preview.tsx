@@ -6,7 +6,7 @@ import Reveal from '@webapp/components/reveal/reveal';
 import SectionHeading from '@webapp/components/section-heading/section-heading';
 import { galleryStats } from '@webapp/data/projects';
 import { site } from '@webapp/data/site';
-import portrait from '@images/miscellaneous/E1.jpg';
+import bathroomBeforeAfter from '@images/miscellaneous/C12.png';
 import styles from './about-preview.module.scss';
 
 const credentials = [
@@ -22,11 +22,11 @@ const AboutPreview = () => (
       <div className={styles['media']}>
         <div className={styles['frame']}>
           <Image
-            alt="Fennec Restoration crew finishing a tiled wall on a Phoenix Valley remodel"
+            alt="Before and after view of a bathroom vanity rebuilt by Fennec Restoration in the Phoenix Valley"
             className={styles['image']}
             fill
             sizes="(max-width: 1024px) 100vw, 42vw"
-            src={portrait}
+            src={bathroomBeforeAfter}
           />
         </div>
         <div className={styles['stats']}>

@@ -25,7 +25,7 @@
 }
 
 .inner {
-  @include container(1320px);
+  @include container($page-max);
 
   position: relative;
   display: flex;
@@ -50,12 +50,12 @@
 .title {
   @include heading-serif($fs-display);
 
-  max-width: 44rem;
+  max-width: 56rem;
   color: $white;
 }
 
 .lede {
-  max-width: 40rem;
+  max-width: 48rem;
   margin-top: 1.4rem;
   font-size: $fs-lead;
   line-height: $leading-relaxed;
@@ -67,4 +67,14 @@
   flex-wrap: wrap;
   gap: 0.9rem;
   margin-top: 2.25rem;
+}
+
+// The email CTA carries a much longer label than the phone button, so it is
+// allowed to wrap its text instead of overflowing narrow phone viewports.
+.actionEmail {
+ max-width: 100%;
+
+ @include mobile {
+ white-space: normal;
+ }
 }

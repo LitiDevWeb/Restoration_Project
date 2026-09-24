@@ -15,7 +15,7 @@
 }
 
 .inner {
-  @include container(1080px);
+  @include container($page-max-narrow);
 
   display: flex;
   flex-direction: column;
@@ -33,13 +33,13 @@
   @include heading-serif($fs-h2);
 
   margin-top: 1.1rem;
-  max-width: 42rem;
+  max-width: 50rem;
   color: $white;
 }
 
 .lede {
   margin-top: 1.25rem;
-  max-width: 38rem;
+  max-width: 44rem;
   font-size: $fs-lead;
   line-height: $leading-relaxed;
   color: $text-on-dark;
@@ -51,4 +51,14 @@
   justify-content: center;
   gap: 1rem;
   margin-top: 2.5rem;
+}
+
+// The email CTA carries a much longer label than the phone button, so it wraps
+// instead of overflowing the centred band on narrow viewports.
+.actionEmail {
+ max-width: 100%;
+
+ @include mobile {
+ white-space: normal;
+ }
 }

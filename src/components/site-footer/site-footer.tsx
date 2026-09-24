@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 
 import { coreServices, navLinks, site, specializedServices } from '@webapp/data/site';
+import { onDialClick } from '@webapp/helpers/dial-fallback';
 import styles from './site-footer.module.scss';
 
 const SiteFooter = () => {
@@ -23,7 +24,7 @@ const SiteFooter = () => {
           <ul className={styles['contact']}>
             <li>
               <FaPhoneAlt aria-hidden="true" size={12} />
-              <a href={site.phoneHref}>{site.phoneDisplay}</a>
+              <a href={site.phoneHref} onClick={onDialClick(site.phoneHref)}>{site.phoneDisplay}</a>
             </li>
             <li>
               <FaEnvelope aria-hidden="true" size={12} />
@@ -72,7 +73,7 @@ const SiteFooter = () => {
                 </li>
               ))}
             <li>
-              <Link href="/estimate">Free estimate</Link>
+              <a href={site.phoneHref} onClick={onDialClick(site.phoneHref)}>Call for estimate</a>
             </li>
           </ul>
         </nav>

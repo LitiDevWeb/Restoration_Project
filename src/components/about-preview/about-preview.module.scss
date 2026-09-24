@@ -7,11 +7,11 @@
 }
 
 .inner {
-  @include container(1320px);
+  @include container($page-max);
 
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-  gap: 4.5rem;
+  gap: 5rem;
   align-items: center;
 
   @include tablet {
@@ -57,14 +57,14 @@
   strong {
     display: block;
     font-family: $font-display;
-    font-size: 1.7rem;
+    font-size: 1.95rem;
     color: $gold-light;
   }
 
   span {
     display: block;
     margin-top: 0.25rem;
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: $text-on-dark-muted;
@@ -88,7 +88,7 @@
     display: flex;
     align-items: flex-start;
     gap: 0.85rem;
-    font-size: 0.96rem;
+    font-size: 1.04rem;
     line-height: 1.6;
     color: $text-body;
   }

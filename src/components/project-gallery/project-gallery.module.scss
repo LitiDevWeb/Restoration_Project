@@ -7,7 +7,7 @@
 }
 
 .inner {
-  @include container(1320px);
+  @include container($page-max);
 }
 
 .filters {
@@ -18,13 +18,15 @@
 }
 
 .filter {
-  @include focus-ring;
+  &:focus-visible {
+    @include focus-ring;
+  }
 
   padding: 0.6rem 1.05rem;
   border: 1px solid $line-light;
   background-color: transparent;
   font-family: $font-body;
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: $weight-bold;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -46,7 +48,7 @@
 
 .count {
   margin-top: 1.5rem;
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   letter-spacing: 0.06em;
   color: $text-muted;
 }
@@ -84,7 +86,9 @@
 }
 
 .card-button {
-  @include focus-ring;
+  &:focus-visible {
+    @include focus-ring;
+  }
 
   display: flex;
   width: 100%;
@@ -136,7 +140,7 @@
   top: 0.9rem;
   left: 0.9rem;
   padding: 0.35rem 0.6rem;
-  font-size: 0.6rem;
+  font-size: 0.68rem;
   background-color: rgba(9, 11, 13, 0.76);
   color: $white;
   backdrop-filter: blur(4px);
@@ -177,7 +181,7 @@
 .card-text {
   @include truncate(3);
 
-  font-size: 0.92rem;
+  font-size: 1rem;
   line-height: $leading-relaxed;
   color: $text-body;
 }
@@ -186,7 +190,7 @@
   margin-top: 0.35rem;
   padding-top: 0.9rem;
   border-top: 1px solid $line-light;
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: $text-muted;

@@ -7,7 +7,7 @@
 }
 
 .inner {
-  @include container(1240px);
+  @include container($page-max-narrow);
 
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
@@ -58,12 +58,12 @@
 
   :global(.react-calendar__navigation__label) {
     font-family: $font-display;
-    font-size: 1.05rem;
+    font-size: 1.15rem;
   }
 
   :global(.react-calendar__month-view__weekdays) {
     color: $text-muted;
-    font-size: 0.66rem;
+    font-size: 0.74rem;
     font-weight: $weight-bold;
     letter-spacing: $tracking-wider;
     text-transform: uppercase;
@@ -75,7 +75,7 @@
 
   :global(.react-calendar__tile) {
     color: $text-body;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
 
     &:disabled {
       color: $text-strong;
@@ -101,7 +101,7 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     color: $text-body;
   }
 }
@@ -143,7 +143,7 @@
 
 .text {
   margin-top: 1.25rem;
-  font-size: 0.95rem;
+  font-size: 1.03rem;
   line-height: $leading-relaxed;
   color: $text-body;
 }
@@ -159,7 +159,7 @@
   li {
     position: relative;
     padding-left: 1.5rem;
-    font-size: 0.9rem;
+    font-size: 0.98rem;
     line-height: 1.7;
     color: $text-body;
 
@@ -181,4 +181,14 @@
   flex-wrap: wrap;
   gap: 0.85rem;
   margin-top: 2rem;
+}
+
+// The email CTA carries a much longer label than the phone button, so it wraps
+// instead of overflowing the side panel on narrow viewports.
+.actionEmail {
+ max-width: 100%;
+
+ @include mobile {
+ white-space: normal;
+ }
 }

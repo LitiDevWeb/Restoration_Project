@@ -12,15 +12,14 @@ export const site = {
   phoneDisplay: '(602) 245-1768',
   phoneHref: 'tel:+16022451768',
   smsHref: 'sms:+16022451768',
-  email: 'fennecbuilding@gmail.com',
-  emailHref: 'mailto:fennecbuilding@gmail.com?subject=Free%20estimate%20request',
+  email: 'Fennecbuilder@gmail.com',
+  emailHref: 'mailto:Fennecbuilder@gmail.com?subject=Free%20estimate%20request',
   areaServed: 'Phoenix Valley & Surrounding Areas, Arizona',
   areaShort: 'Phoenix Valley & Surrounding Areas',
   addressLocality: 'Phoenix',
   addressRegion: 'AZ',
   addressCountry: 'US',
   url: 'https://www.fennecrestoration.com',
-  responseNote: 'Send us a message any time — phone, text, or the form below. No pressure, no obligation.',
 } as const;
 
 export type NavLink = {
@@ -35,6 +34,15 @@ export const navLinks: NavLink[] = [
   { label: 'About', href: '/about' },
   { label: 'Availability', href: '/calendar' },
 ];
+
+// Header-only ordering: Home first, About second, then the remaining links in
+// their canonical order (Services, Projects, Availability). `navLinks` stays
+// untouched so the footer columns keep their own order.
+export const headerNavOrder: string[] = ['/home', '/about', '/services', '/work', '/calendar'];
+
+export const headerNavLinks: NavLink[] = headerNavOrder
+.map((href) => navLinks.find((link) => link.href === href))
+.filter((link): link is NavLink => link !== undefined);
 
 export const trustPoints: { value: string; label: string }[] = [
   { value: `ROC ${site.roc}`, label: 'Licensed Arizona contractor' },
@@ -181,17 +189,4 @@ export const faqs: { question: string; answer: string }[] = [
     answer:
       'Bathrooms commonly run a few weeks, while kitchens and additions take longer once permits and material lead times are factored in. Your written scope includes a projected schedule before we start.',
   },
-];
-
-export const estimateProjectTypes: string[] = [
-  'Kitchen Remodeling',
-  'Bathroom Remodeling',
-  'Whole-Home Remodel',
-  'Room Addition / Garage Conversion',
-  'New Build',
-  'Outdoor Living (Patio, Pergola, Pavers)',
-  'Roofing',
-  'Restoration / Water or Fire Damage',
-  'Repairs & Repair Work',
-  'Something Else',
 ];

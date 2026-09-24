@@ -1,6 +1,7 @@
 import React from 'react';
 import Image, { type StaticImageData } from 'next/image';
 import classNames from 'classnames';
+import { FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 import CtaLink from '@webapp/components/cta/cta-link';
 import { site } from '@webapp/data/site';
 import styles from './page-hero.module.scss';
@@ -29,12 +30,14 @@ const PageHero = ({ eyebrow, title, lede, image, imageAlt, showCta = true }: Pag
 
       {showCta && (
         <div className={styles['actions']}>
-          <CtaLink href="/estimate" size="md">
-            Get My Free Estimate
+          <CtaLink href={site.phoneHref} size="md">
+            <FaPhoneAlt aria-hidden="true" size={14} />
+            Call for estimate
           </CtaLink>
-          <CtaLink href={site.phoneHref} size="md" variant="outline">
-            {site.phoneDisplay}
-          </CtaLink>
+ <CtaLink className={styles['actionEmail']} href={site.emailHref} size="md" variant="outline">
+ <FaEnvelope aria-hidden="true" size={14} />
+ {site.email}
+ </CtaLink>
         </div>
       )}
     </div>

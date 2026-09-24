@@ -4,6 +4,7 @@ import { FaArrowLeft, FaArrowRight, FaColumns, FaImage, FaTimes } from 'react-ic
 
 import CtaLink from '@webapp/components/cta/cta-link';
 import { stageLabels, type Project } from '@webapp/data/projects';
+import { site } from '@webapp/data/site';
 import BeforeAfter from './before-after';
 import styles from './project-dialog.module.scss';
 
@@ -195,8 +196,8 @@ const ProjectDialog = ({ project, onClose }: ProjectDialogProps) => {
             These photos were taken on Fennec Restoration job sites in the Phoenix Valley. Stage labels show where each
             photo falls in the build.
           </p>
-          <CtaLink href="/estimate" size="sm">
-            Start a project like this
+          <CtaLink href={site.phoneHref} size="sm">
+            Call for estimate
           </CtaLink>
         </div>
       </div>

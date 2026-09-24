@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import classNames from 'classnames';
+
+import { isDialHref, onDialClick } from '@webapp/helpers/dial-fallback';
 import styles from './cta.module.scss';
 
 export type CtaVariant = 'primary' | 'dark' | 'light' | 'outline' | 'outlineDark';
@@ -30,7 +32,7 @@ const CtaLink = ({ href, children, variant = 'primary', size = 'md', block = fal
 
   if (isExternal(href)) {
     return (
-      <a className={classes} href={href} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener noreferrer' : undefined}>
+      <a className={classes} href={href} onClick={isDialHref(href) ? onDialClick(href) : undefined} rel={newTab ? 'noopener noreferrer' : undefined} target={newTab ? '_blank' : undefined}>
         {children}
       </a>
     );

@@ -9,7 +9,7 @@
 .topbar {
   background-color: $charcoal-900;
   color: $text-on-dark-muted;
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: $weight-semibold;
   letter-spacing: $tracking-wider;
   text-transform: uppercase;
@@ -20,7 +20,7 @@
 }
 
 .topbar-inner {
-  @include container(1320px);
+  @include container($page-max);
 
   display: flex;
   align-items: center;
@@ -54,13 +54,13 @@
 }
 
 .bar-inner {
-  @include container(1320px);
+  @include container($page-max);
 
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  min-height: 4.9rem;
+  min-height: 5.15rem;
 }
 
 .brand {
@@ -82,7 +82,7 @@
 
   strong {
     font-family: $font-display;
-    font-size: 1.45rem;
+    font-size: 1.62rem;
     font-weight: $weight-regular;
     line-height: 1;
     color: $text-strong;
@@ -92,7 +92,7 @@
     @include eyebrow;
 
     margin-top: 0.35rem;
-    font-size: 0.58rem;
+    font-size: 0.66rem;
     color: $text-muted;
   }
 
@@ -102,7 +102,7 @@
     }
 
     small {
-      font-size: 0.52rem;
+      font-size: 0.58rem;
       letter-spacing: $tracking-wide;
     }
   }
@@ -111,7 +111,7 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 1.9rem;
+  gap: 2.15rem;
 
   @include tablet {
     display: none;
@@ -121,7 +121,7 @@
 .nav-link {
   position: relative;
   padding: 0.4rem 0;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: $weight-bold;
   letter-spacing: $tracking-wide;
   text-transform: uppercase;
@@ -167,29 +167,7 @@
   }
 }
 
-.phone {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.88rem;
-  font-weight: $weight-bold;
-  color: $text-strong;
-  text-decoration: none;
-
-  svg {
-    color: $gold-dark;
-  }
-
-  &:hover {
-    color: $gold-dark;
-  }
-
-  @include laptop {
-    display: none;
-  }
-}
-
-.estimate {
+.call {
   @include tablet {
     display: none;
   }
@@ -244,7 +222,7 @@
   padding: 0.85rem 0;
   border-bottom: 1px solid $line-dark;
   font-family: $font-display;
-  font-size: 1.55rem;
+  font-size: 1.75rem;
   color: $white;
   text-decoration: none;
   transition: color 0.25s ease;
@@ -264,7 +242,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: $text-on-dark;
   text-decoration: none;
 
@@ -280,7 +258,7 @@
 .drawer-note {
   @include eyebrow;
 
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   color: $text-on-dark-muted;
 }
 

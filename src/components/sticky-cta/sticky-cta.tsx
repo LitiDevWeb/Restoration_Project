@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import classNames from 'classnames';
-import { FaClipboardList, FaPhoneAlt } from 'react-icons/fa';
+import { FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 
 import { site } from '@webapp/data/site';
+import { onDialClick } from '@webapp/helpers/dial-fallback';
 import styles from './sticky-cta.module.scss';
 
-/** Mobile-only call / estimate bar that appears once the visitor scrolls past the hero. */
+/** Mobile-only call and email bar that appears once the visitor scrolls past the hero. */
 const StickyCta = () => {
   const [visible, setVisible] = useState(false);
 
@@ -23,14 +23,14 @@ const StickyCta = () => {
     <>
       <div aria-hidden="true" className={styles['spacer']} />
       <div className={classNames(styles['bar'], { [styles['visible']]: visible })}>
-        <a className={classNames(styles['action'], styles['call'])} href={site.phoneHref}>
+        <a className={classNames(styles['action'], styles['call'])} href={site.phoneHref} onClick={onDialClick(site.phoneHref)}>
           <FaPhoneAlt aria-hidden="true" size={13} />
-          <span>Call {site.phoneDisplay}</span>
+          <span>Call for estimate</span>
         </a>
-        <Link className={classNames(styles['action'], styles['estimate'])} href="/estimate">
-          <FaClipboardList aria-hidden="true" size={13} />
-          <span>Free estimate</span>
-        </Link>
+ <a className={classNames(styles['action'], styles['email'])} href={site.emailHref}>
+ <FaEnvelope aria-hidden="true" size={13} />
+ <span>{site.email}</span>
+ </a>
       </div>
     </>
   );

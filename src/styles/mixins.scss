@@ -27,8 +27,9 @@
   }
 }
 
-// Layout
-@mixin container($max: 1240px) {
+// Layout — the marketing site now centres on the $page-max rail (1680px) so the
+// content fills the screen; pass $page-max-narrow for text-led bands.
+@mixin container($max: $page-max) {
   width: 100%;
   max-width: $max;
   margin: 0 auto;

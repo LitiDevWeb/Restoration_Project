@@ -64,6 +64,11 @@ import miscB3 from '@images/miscellaneous/B3.jpg';
 import miscE1 from '@images/miscellaneous/E1.jpg';
 import miscE2 from '@images/miscellaneous/E2.jpg';
 
+import livingroomS1 from '@images/livingroom/S1.jpg';
+import livingroomS2 from '@images/livingroom/S2.jpg';
+import livingroomG1 from '@images/livingroom/G1.jpg';
+import livingroomG2 from '@images/livingroom/G2.jpg';
+
 export type Stage = 'before' | 'progress' | 'after';
 
 export const stageLabels: Record<Stage, string> = {
@@ -233,6 +238,22 @@ export const projects: Project[] = [
       { src: miscB3, alt: 'Completed built-in shelving and stone fireplace surround', stage: 'after' },
       { src: miscE1, alt: 'Arched interior opening with chandelier in the finished home', stage: 'after' },
       { src: miscE2, alt: 'Arched hallway with chandelier and finished flooring', stage: 'after' },
+    ],
+  },
+  {
+    id: 'interior-living-room-refresh',
+    title: 'Living Room Floor Replacement & Beam Details',
+    category: 'Interior',
+    location: 'Phoenix Valley, AZ',
+    summary:
+      'Two living spaces brought back to life: a carpeted room rebuilt with wood beams and a black paneled media wall, and a vaulted room taken down to the subfloor for new hardwood and a chandelier.',
+    scope: ['Carpet & flooring removal', 'Wood beam details', 'Black paneled media wall', 'Hardwood floors & lighting'],
+    cover: livingroomS2,
+    photos: [
+      { src: livingroomS1, alt: 'Cluttered carpeted living room before the remodel with a popcorn ceiling and a pass-through to the kitchen', stage: 'before' },
+      { src: livingroomG1, alt: 'Walk-behind floor stripper lifting the old flooring in the vaulted living room during demolition', stage: 'progress' },
+      { src: livingroomG2, alt: 'Finished vaulted living room with new hardwood floors, chandelier and French doors out to the pool', stage: 'after' },
+      { src: livingroomS2, alt: 'Finished open living area with wood beams, a black paneled media wall and light hardwood flooring', stage: 'after' },
     ],
   },
   {

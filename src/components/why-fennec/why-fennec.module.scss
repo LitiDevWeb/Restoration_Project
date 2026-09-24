@@ -8,13 +8,13 @@
 }
 
 .inner {
-  @include container(1320px);
+  @include container($page-max);
 }
 
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 4rem;
+  gap: 4.5rem;
   align-items: start;
 
   @include tablet {
@@ -46,7 +46,7 @@
 .number {
   flex-shrink: 0;
   font-family: $font-display;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: $gold;
 }
 
@@ -58,7 +58,7 @@
 
 .item-text {
   margin-top: 0.55rem;
-  font-size: 0.95rem;
+  font-size: 1.03rem;
   line-height: $leading-relaxed;
   color: $text-on-dark-muted;
 }
@@ -101,7 +101,7 @@
 .caption {
   grid-column: 1 / -1;
   margin-top: 0.35rem;
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   letter-spacing: 0.04em;
   color: $text-on-dark-muted;
 }

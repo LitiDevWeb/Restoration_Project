@@ -36,7 +36,7 @@ const Faq = ({ withHeading = true, limit }: FaqProps) => {
             const buttonId = `faq-button-${index}`;
 
             return (
-              <li className={styles['item']} key={item.question}>
+              <li className={classNames(styles['item'], { [styles['open']]: isOpen })} key={item.question}>
                 <h3 className={styles['question-wrap']}>
                   <button
                     aria-controls={panelId}

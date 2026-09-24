@@ -6,8 +6,11 @@
   background-color: $ivory;
 }
 
+// The Q&A rows stay on the narrower rail: a question line pinned to its toggle
+// across the full 1680px rail would be an uncomfortably long reading sweep,
+// while $page-max-narrow is still far wider than the original 1080px band.
 .inner {
-  @include container(1080px);
+  @include container($page-max-narrow);
 }
 
 .list {
@@ -19,6 +22,12 @@
 
 .item {
   border-bottom: 1px solid $line-light;
+  transition: background-color 0.3s ease;
+
+  // The open row lifts off the ivory band instead of growing a hard frame.
+  &.open {
+    background-color: $white;
+  }
 }
 
 .question-wrap {
@@ -28,54 +37,88 @@
 }
 
 .question {
-  @include focus-ring;
-
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 1.65rem 0;
+  padding: 1.35rem 0;
   border: 0;
   background-color: transparent;
   font-family: $font-body;
-  font-size: clamp(1rem, 0.95rem + 0.35vw, 1.15rem);
+  font-size: clamp(1.15rem, 1.05rem + 0.45vw, 1.5rem);
   font-weight: $weight-bold;
+  line-height: $leading-normal;
   text-align: left;
   color: $text-strong;
   cursor: pointer;
   transition: color 0.25s ease;
 
+  // Keyboard-only affordance — it is inlined so a resting row never carries a
+  // floating brass frame (that outline is what framed every closed question).
+  &:focus-visible {
+    @include focus-ring;
+
+    outline-offset: -2px;
+  }
+
   &:hover {
     color: $gold-dark;
+  }
+
+  @include tablet {
+    gap: 1rem;
+    padding: 1.15rem 0;
   }
 }
 
 .sign {
   position: relative;
   flex-shrink: 0;
-  width: 14px;
-  height: 14px;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(201, 162, 77, 0.45);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 
   &::before,
   &::after {
     content: '';
     position: absolute;
     top: 50%;
-    left: 0;
-    width: 14px;
+    left: 50%;
+    width: 13px;
     height: 1.5px;
     background-color: $gold-dark;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
   }
 
   &::after {
-    transform: rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  @include mobile {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.question:hover .sign {
+  border-color: $gold;
+}
+
+.question[aria-expanded='true'] .sign {
+  border-color: $gold;
+  background-color: $gold;
+
+  &::before,
+  &::after {
+    background-color: $charcoal-900;
   }
 }
 
 .question[aria-expanded='true'] .sign::after {
-  transform: rotate(0deg);
+  transform: translate(-50%, -50%) rotate(0deg);
   opacity: 0;
 }
 
@@ -95,11 +138,15 @@
   overflow: hidden;
 
   p {
-    max-width: 46rem;
-    padding-bottom: 1.85rem;
-    font-size: 0.98rem;
+    max-width: 62rem;
+    padding-bottom: 1.6rem;
+    font-size: $fs-body;
     line-height: $leading-relaxed;
     color: $text-body;
+
+    @include tablet {
+      padding-bottom: 1.4rem;
+    }
   }
 }
 

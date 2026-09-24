@@ -29,7 +29,7 @@
 }
 
 .inner {
-  @include container(1320px);
+  @include container($page-max);
 
   position: relative;
   display: flex;
@@ -50,14 +50,28 @@
 .eyebrow {
   @include eyebrow;
 
-  margin-bottom: 1.5rem;
+  // Home hero only: the classification + ROC line is the first credential a
+  // visitor reads, so it runs noticeably larger than the standard eyebrow.
+  margin-bottom: 1.35rem;
+  font-size: clamp(1.12rem, 0.95rem + 0.5vw, 1.5rem);
+  letter-spacing: 0.2em;
   color: $gold-light;
+
+  // Tighter tracking on phones so "General Contractor · ROC 355657" still holds
+  // a single line inside the narrow container.
+  @include mobile {
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+  }
 }
 
 .title {
   @include heading-serif($fs-hero);
 
-  max-width: 46rem;
+  // Wide enough for "Big or small — we do it all." to hold on a single line
+  // once the fluid clamp reaches its 6rem ceiling (the wider page rail leaves
+  // roughly 1630px of room for this line on large displays).
+  max-width: 80rem;
   color: $white;
 
   span {
@@ -66,7 +80,7 @@
 }
 
 .lede {
-  max-width: 40rem;
+  max-width: 50rem;
   margin-top: 1.6rem;
   font-size: $fs-lead;
   line-height: $leading-relaxed;
@@ -78,6 +92,16 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 2.5rem;
+}
+
+// The email CTA carries a much longer label than the phone button, so it is
+// allowed to wrap its text instead of overflowing narrow phone viewports.
+.actionEmail {
+  max-width: 100%;
+
+  @include mobile {
+    white-space: normal;
+  }
 }
 
 .highlights {
@@ -92,7 +116,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.9rem;
+    font-size: 1.02rem;
     color: rgba(255, 255, 255, 0.78);
 
     &::before {
@@ -113,7 +137,7 @@
 }
 
 .trustbar-inner {
-  @include container(1320px);
+  @include container($page-max);
 
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -137,13 +161,13 @@
 
   strong {
     font-family: $font-display;
-    font-size: 1.15rem;
+    font-size: 1.38rem;
     font-weight: $weight-regular;
     color: $gold-light;
   }
 
   span {
-    font-size: 0.78rem;
+    font-size: 0.9rem;
     letter-spacing: 0.04em;
     color: rgba(255, 255, 255, 0.64);
   }

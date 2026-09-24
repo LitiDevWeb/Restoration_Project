@@ -9,7 +9,7 @@
   border-radius: 2px;
   padding: 1rem 1.75rem;
   font-family: $font-body;
-  font-size: 0.86rem;
+  font-size: 0.95rem;
   font-weight: $weight-bold;
   letter-spacing: $tracking-wide;
   text-transform: uppercase;
@@ -34,7 +34,7 @@
 
   @include mobile {
     padding: 0.9rem 1.25rem;
-    font-size: 0.78rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -89,7 +89,7 @@
 
 .sm {
   padding: 0.7rem 1.15rem;
-  font-size: 0.74rem;
+  font-size: 0.82rem;
 }
 
 .md {
@@ -97,8 +97,8 @@
 }
 
 .lg {
-  padding: 1.15rem 2.15rem;
-  font-size: 0.92rem;
+  padding: 1.25rem 2.35rem;
+  font-size: 1.04rem;
 }
 
 .block {

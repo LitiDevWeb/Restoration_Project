@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
-import Link from 'next/link';
 import { FaBuilding, FaExpand, FaHouseDamage, FaSun, FaTools } from 'react-icons/fa';
 
 import SectionHeading from '@webapp/components/section-heading/section-heading';
 import { coreServices, site, specializedServices } from '@webapp/data/site';
+import { onDialClick } from '@webapp/helpers/dial-fallback';
 import styles from './service-grid.module.scss';
 
 const icons: Record<string, ReactNode> = {
@@ -47,9 +47,9 @@ const ServiceGrid = ({ withHeading = true }: ServiceGridProps) => (
                 <li key={bullet}>{bullet}</li>
               ))}
             </ul>
-            <Link className={styles['card-link']} href="/estimate">
-              Start an estimate
-            </Link>
+            <a className={styles['card-link']} href={site.phoneHref} onClick={onDialClick(site.phoneHref)}>
+              Call for estimate
+            </a>
           </li>
         ))}
       </ul>

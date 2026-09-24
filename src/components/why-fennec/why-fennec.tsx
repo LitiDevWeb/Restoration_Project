@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import SectionHeading from '@webapp/components/section-heading/section-heading';
 import { whyFennec } from '@webapp/data/site';
-import galleryImage from '@images/bathroom/3.jpg';
-import detailImage from '@images/patio/8.jpg';
+import galleryImage from '@images/miscellaneous/F1.jpg';
+import detailImage from '@images/miscellaneous/F3.jpg';
 import styles from './why-fennec.module.scss';
 
 const WhyFennec = () => (

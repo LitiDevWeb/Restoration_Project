@@ -3,6 +3,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import ReactCalendar from 'react-calendar';
+import { FaEnvelope } from 'react-icons/fa';
 
 import CtaBand from '@webapp/components/cta-band/cta-band';
 import CtaLink from '@webapp/components/cta/cta-link';
@@ -11,7 +12,7 @@ import PageHero from '@webapp/components/page-hero/page-hero';
 import Seo from '@webapp/components/seo/seo';
 import { breadcrumbSchema, localBusinessSchema } from '@webapp/data/schema';
 import { site } from '@webapp/data/site';
-import heroImage from '@images/miscellaneous/E2.jpg';
+import heroImage from '@images/design.png';
 import styles from './calendar.module.scss';
 
 dayjs.extend(isBetween);
@@ -151,17 +152,18 @@ const Calendar = ({ unavailabilities }: CalendarProps) => (
 
           <ul className={styles['notes']}>
             <li>Booked days mean crews are on a committed job — they are not a refusal.</li>
-            <li>Send your target start date with the estimate request and we will match it to the schedule.</li>
+            <li>Call with your target start date and we will match it to the schedule.</li>
             <li>Emergency repair and restoration work is scheduled outside the calendar — call us directly.</li>
           </ul>
 
           <div className={styles['actions']}>
-            <CtaLink href="/estimate" size="md">
-              Request a free estimate
+            <CtaLink href={site.phoneHref} size="md">
+              Call for estimate
             </CtaLink>
-            <CtaLink href={site.phoneHref} size="md" variant="outlineDark">
-              Call {site.phoneDisplay}
-            </CtaLink>
+ <CtaLink className={styles['actionEmail']} href={site.emailHref} size="md" variant="outlineDark">
+ <FaEnvelope aria-hidden="true" size={14} />
+ {site.email}
+ </CtaLink>
           </div>
         </div>
       </div>

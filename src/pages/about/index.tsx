@@ -8,7 +8,7 @@ import Seo from '@webapp/components/seo/seo';
 import WhyFennec from '@webapp/components/why-fennec/why-fennec';
 import { breadcrumbSchema, localBusinessSchema } from '@webapp/data/schema';
 import { site } from '@webapp/data/site';
-import heroImage from '@images/miscellaneous/A3.jpg';
+import heroImage from '@images/miscellaneous/F2.jpg';
 
 const About = () => (
   <Layout>

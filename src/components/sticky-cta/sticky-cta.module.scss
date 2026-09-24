@@ -25,7 +25,7 @@
   justify-content: center;
   gap: 0.6rem;
   padding: 1.05rem 0.75rem;
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: $weight-bold;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -33,16 +33,26 @@
 }
 
 .call {
-  color: $white;
-}
-
-.estimate {
   background-color: $gold;
   color: $charcoal-900;
 }
 
+.email {
+ background-color: rgba(255, 255, 255, 0.06);
+ color: $white;
+ // The address is much longer than the call label, so it drops the uppercase
+ // tracking and is allowed to wrap instead of overflowing its half of the bar.
+ font-size: 0.74rem;
+ line-height: 1.2;
+ padding: 0.66rem 0.75rem;
+ letter-spacing: 0.01em;
+ text-transform: none;
+ overflow-wrap: anywhere;
+ white-space: normal;
+}
+
 .spacer {
-  height: 3.65rem;
+  height: 3.8rem;
 }
 
 @include desktop-up {

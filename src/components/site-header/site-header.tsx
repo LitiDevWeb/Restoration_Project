@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { FaBars, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaTimes } from 'react-icons/fa';
 
 import CtaLink from '@webapp/components/cta/cta-link';
-import { navLinks, site } from '@webapp/data/site';
+import { headerNavLinks, site } from '@webapp/data/site';
 import styles from './site-header.module.scss';
 
 const LOGO_SIZE = 46;
@@ -79,7 +79,7 @@ const SiteHeader = () => {
           </Link>
 
           <nav aria-label="Primary" className={styles['nav']}>
-            {navLinks.map((link) => (
+            {headerNavLinks.map((link) => (
               <Link
                 aria-current={isActive(link.href, pathname) ? 'page' : undefined}
                 className={classNames(styles['nav-link'], { [styles['active']]: isActive(link.href, pathname) })}
@@ -92,12 +92,9 @@ const SiteHeader = () => {
           </nav>
 
           <div className={styles['actions']}>
-            <a className={styles['phone']} href={site.phoneHref}>
-              <FaPhoneAlt aria-hidden="true" size={13} />
-              <span>{site.phoneDisplay}</span>
-            </a>
-            <CtaLink className={styles['estimate']} href="/estimate" size="sm">
-              Free Estimate
+            <CtaLink className={styles['call']} href={site.phoneHref} size="sm">
+              <FaPhoneAlt aria-hidden="true" size={12} />
+              Call for estimate
             </CtaLink>
             <button
               aria-controls="mobile-navigation"
@@ -119,7 +116,7 @@ const SiteHeader = () => {
         id="mobile-navigation"
       >
         <nav aria-label="Mobile" className={styles['drawer-nav']}>
-          {navLinks.map((link) => (
+          {headerNavLinks.map((link) => (
             <Link
               aria-current={isActive(link.href, pathname) ? 'page' : undefined}
               className={classNames(styles['drawer-link'], { [styles['active']]: isActive(link.href, pathname) })}
@@ -133,13 +130,10 @@ const SiteHeader = () => {
         </nav>
 
         <div className={styles['drawer-actions']}>
-          <CtaLink block href="/estimate" size="md">
-            Get My Free Estimate
-          </CtaLink>
-          <a className={styles['drawer-contact']} href={site.phoneHref}>
+          <CtaLink block href={site.phoneHref} size="md">
             <FaPhoneAlt aria-hidden="true" size={14} />
-            {site.phoneDisplay}
-          </a>
+            Call for estimate
+          </CtaLink>
           <a className={styles['drawer-contact']} href={site.emailHref}>
             <FaEnvelope aria-hidden="true" size={14} />
             {site.email}

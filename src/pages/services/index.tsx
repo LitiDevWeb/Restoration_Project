@@ -8,13 +8,13 @@ import ServiceGrid from '@webapp/components/service-grid/service-grid';
 import WhyFennec from '@webapp/components/why-fennec/why-fennec';
 import { breadcrumbSchema, localBusinessSchema, servicePageSchema } from '@webapp/data/schema';
 import { coreServices, site } from '@webapp/data/site';
-import heroImage from '@images/bathroom/3.jpg';
+import heroImage from '@images/kitchen/S3.jpg';
 
 const Services = () => (
   <Layout>
     <Seo
       description="Kitchen and bathroom remodeling, restoration, room additions, outdoor living and new construction from a licensed Phoenix Valley general contractor. ROC 355657. Free itemized estimates."
-      image="/images/bathroom/3.jpg"
+      image="/images/kitchen/S3.jpg"
       path="/services"
       structuredData={[
         localBusinessSchema,

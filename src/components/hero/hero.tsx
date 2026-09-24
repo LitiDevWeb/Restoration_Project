@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { FaPhoneAlt } from 'react-icons/fa';
+import { FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
 import CtaLink from '@webapp/components/cta/cta-link';
 import { site, trustPoints } from '@webapp/data/site';
-import heroImage from '@images/miscellaneous/A3.jpg';
+import heroImage from '@images/home-a.png';
 import styles from './hero.module.scss';
 
 interface HeroProps {
@@ -40,12 +40,13 @@ const Hero = ({
       {lede && <p className={styles['lede']}>{lede}</p>}
 
       <div className={styles['actions']}>
-        <CtaLink href="/estimate" size="lg">
-          Get My Free Estimate
-        </CtaLink>
-        <CtaLink href={site.phoneHref} size="lg" variant="outline">
+        <CtaLink href={site.phoneHref} size="lg">
           <FaPhoneAlt aria-hidden="true" size={14} />
-          {site.phoneDisplay}
+          Call for estimate
+        </CtaLink>
+        <CtaLink className={styles['actionEmail']} href={site.emailHref} size="lg" variant="outline">
+          <FaEnvelope aria-hidden="true" size={14} />
+          {site.email}
         </CtaLink>
       </div>
 

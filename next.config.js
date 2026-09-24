@@ -10,10 +10,10 @@ const nextConfig = {
         permanent: true,
       },
       {
-        // The legacy site exposed /contact; the estimate page is the canonical
-        // conversion destination and carries the same NAP details.
+        // The legacy site exposed /contact; home is the canonical conversion
+        // destination and carries the same NAP details and call to action.
         source: '/contact',
-        destination: '/estimate',
+        destination: '/home',
         permanent: true,
       },
     ];

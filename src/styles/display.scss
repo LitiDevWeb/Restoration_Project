@@ -1,3 +1,11 @@
 $breakpoint-width-mobile: 640px;
 $breakpoint-width-tablet: 1024px;
-$breakpoint-width-laptop: 1536px
+$breakpoint-width-laptop: 1536px;
+
+// ---------------------------------------------------------------------------
+// Page rails — a single width token keeps the header, hero, every section and
+// the footer aligned on the same grid. Raised from 1320px so the content fills
+// wide desktop viewports instead of leaving large empty margins on both sides.
+// ---------------------------------------------------------------------------
+$page-max: 1680px;
+$page-max-narrow: 1360px;
