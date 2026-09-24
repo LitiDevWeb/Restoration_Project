@@ -1,6 +1,28 @@
 @import "@styles";
 @import "./fonts.scss";
 
+// ---------------------------------------------------------------------------
+// Box model — the whole layout leans on the `container` mixin (@styles), which
+// pairs `width: 100%` with horizontal padding. That padding must live inside
+// the border box, otherwise every page rail is 36px (phones) to 48px (tablet
+// and up) wider than the viewport: content runs off the right edge and mobile
+// browsers become horizontally scrollable. Declared first on purpose — the
+// universal selector carries no specificity, so every component rule wins.
+// ---------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// Responsive safety net for media that ships with intrinsic dimensions.
+img,
+picture,
+video,
+canvas {
+  max-width: 100%;
+}
+
 html {
   margin: 0;
 }
@@ -344,6 +366,9 @@ body {
   min-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  // Long unbreakable strings (email addresses, phone numbers, URLs) wrap
+  // instead of widening the layout on narrow phones.
+  overflow-wrap: break-word;
   font-family: $font-body;
   color: $text-body;
   background-color: $white;

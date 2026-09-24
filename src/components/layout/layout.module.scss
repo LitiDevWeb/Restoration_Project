@@ -11,7 +11,7 @@
 
   position: fixed;
   top: 0.75rem;
-  left: -100vw;
+  left: 0.75rem;
   z-index: 500;
   padding: 0.85rem 1.25rem;
   background-color: $white;
@@ -21,7 +21,14 @@
   color: $text-strong;
   text-decoration: none;
 
-  &:focus {
-    left: 0.75rem;
+  // Hidden by clipping instead of `left: -100vw`: a fixed element parked to the
+  // left of the viewport widens the layout viewport on mobile browsers, which
+  // made the page horizontally scrollable and revealed a white band.
+  clip-path: inset(50%);
+  white-space: nowrap;
+
+  &:focus,
+  &:focus-visible {
+    clip-path: none;
   }
 }
