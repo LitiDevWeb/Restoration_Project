@@ -16,6 +16,7 @@ import kitchenA1 from '@images/kitchen/A1.jpg';
 import kitchenA2 from '@images/kitchen/A2.jpg';
 import kitchenB1 from '@images/kitchen/B1.jpg';
 import kitchenB2 from '@images/kitchen/B2.jpg';
+import kitchenS3 from '@images/kitchen/S3.jpg';
 
 import bathroom1 from '@images/bathroom/1.jpg';
 import bathroom2 from '@images/bathroom/2.jpg';
@@ -112,7 +113,7 @@ export const projects: Project[] = [
     summary:
       'A closed-off, dated kitchen was stripped back to studs and rebuilt with new cabinetry, counters, lighting and a service peninsula.',
     scope: ['Full demolition', 'New cabinetry & countertops', 'Tile & backsplash', 'Lighting & electrical'],
-    cover: kitchenA2,
+    cover: kitchenS3,
     photos: [
       { src: kitchen1, alt: 'Original dated kitchen with worn cabinets before demolition', stage: 'before' },
       { src: kitchenA1, alt: 'Kitchen stripped back to bare drywall during demolition', stage: 'before' },
@@ -120,6 +121,7 @@ export const projects: Project[] = [
       { src: kitchen3, alt: 'New kitchen cabinetry with pendant lighting partly installed', stage: 'progress' },
       { src: kitchen4, alt: 'Kitchen remodel in progress with new cabinets and open floor area', stage: 'progress' },
       { src: kitchenA2, alt: 'Finished kitchen with shaker cabinetry, quartz counters and tile backsplash', stage: 'after' },
+      { src: kitchenS3, alt: 'Completed modern kitchen', stage: 'after' },
     ],
   },
   {

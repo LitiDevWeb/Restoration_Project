@@ -1,30 +1,71 @@
 @import "@styles";
 
+// Matches the public CTA buttons so the admin area speaks the same visual language.
 .container {
-  padding: 0.8rem 1.5rem;
-  background-color: $primary;
-  color: $white;
-  font-size: $body-small;
-  font-weight: 600;
-  cursor: pointer;
-  opacity: 0.7;
-  transition-duration: 0.3s;
-  border: none;
-  border-radius: 2px;
-  display: flex;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 1.75rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background-color: $gold;
+  color: $charcoal-900;
+  font-family: $font-body;
+  font-size: 0.88rem;
+  font-weight: $weight-bold;
+  letter-spacing: $tracking-wide;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 
-  @media (width < $breakpoint-width-tablet) {
-    padding: 0.6rem 1rem;
-    font-size: $body-small;
+  &:hover:not(:disabled) {
+    background-color: $gold-light;
+    transform: translateY(-1px);
   }
 
-  @media (width < $breakpoint-width-mobile) {
-    padding: 0.4rem 0.4rem;
-    font-size: $label-medium;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+  }
+
+  @include mobile {
+    padding: 0.85rem 1.15rem;
+    font-size: 0.8rem;
   }
 }
 
+.icon {
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.block {
+  width: 100%;
+}
+
 .active {
-  opacity: 1;
+  background-color: $charcoal;
+  color: $gold-light;
+
+  &:hover:not(:disabled) {
+    background-color: $graphite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    transition: none;
+
+    &:hover:not(:disabled) {
+      transform: none;
+    }
+  }
 }

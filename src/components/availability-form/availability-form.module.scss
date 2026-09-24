@@ -1,80 +1,136 @@
 @import "@styles";
 
 .container {
-  width: 52rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  @media (width < $breakpoint-width-tablet) {
-    width: 32rem;
-  }
-
-  @media (width < $breakpoint-width-mobile) {
-    width: fit-content;
-  }
+  width: 100%;
+  max-width: 40rem;
 }
 
 .header {
-  font-size: $body-small;
-  font-weight: 600;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $line-light;
+}
+
+.eyebrow {
+  @include eyebrow;
+
+  color: $gold-dark;
+}
+
+.title {
+  @include heading-serif($fs-h4);
+
+  margin-top: 0.6rem;
+  color: $text-strong;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid $line-light;
+  border-radius: 2px;
+  background: none;
+  color: $text-muted;
+  cursor: pointer;
+  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    background-color: $gold-tint;
+    border-color: $gold;
+    color: $text-strong;
+  }
 }
 
 .form {
   display: flex;
-  height: 28rem;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 1.75rem;
+  margin-top: 1.75rem;
+}
+
+.form-types {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+// Fields share the row when there are two of them and fill it when there is one.
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex: 1 1 14rem;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    @include eyebrow;
+
+    font-size: 0.64rem;
+    color: $text-muted;
+  }
+}
+
+.date-picker-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.date-picker-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid $line-light;
+  border-radius: 2px;
+  background-color: $white;
+  color: $text-strong;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $gold;
+    box-shadow: 0 0 0 3px $gold-tint;
+  }
+
+  &:disabled {
+    background-color: $sand;
+    color: $text-muted;
+    cursor: not-allowed;
+  }
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: $text-muted;
 }
 
 .buttons {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid $line-light;
 
   button {
-    width: 10rem;
-    box-shadow: $shadow-box-basic;
-  }
-
-  svg {
-    margin-right: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  svg:hover {
-    color: $alert;
+    min-width: 11rem;
   }
 }
 
-.form-types {
-  display: flex;
-  justify-content: center;
-  padding: 3rem 4rem;
-}
-
-.line {
-  display: flex;
-  column-gap: 2rem;
-  justify-content: center;
-  align-items: center;
-
-  @media (width < $breakpoint-width-mobile) {
-    display: block;
-  }
-
-  label {
-    font-size: $label-large;
-    font-weight: 600;
-  }
-}
-
-.date-picker-input {
-  margin-top: 0.5rem;
-  padding: 0.6rem;
-
-  input {
-    width: fit-content;
-  }
-}

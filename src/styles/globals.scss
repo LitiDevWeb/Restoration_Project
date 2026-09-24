@@ -411,3 +411,104 @@ button {
   font-family: $font-body !important;
 }
 
+// ---------------------------------------------------------------------------
+// Admin date picker — the availability form is the only consumer of
+// react-datepicker, so its brass skin lives here next to the other library
+// overrides instead of a component-scoped stylesheet (the popup is portalled
+// outside the component tree).
+// ---------------------------------------------------------------------------
+.react-datepicker {
+  border-color: $line-light;
+  border-radius: 3px;
+  box-shadow: 0 18px 40px rgba(9, 11, 13, 0.16);
+  font-family: $font-body;
+  font-size: 0.9rem;
+}
+
+.react-datepicker__header {
+  background-color: $sand;
+  border-bottom-color: $line-light;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  color: $text-strong;
+  font-family: $font-display;
+  font-size: 1rem;
+  font-weight: $weight-regular;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: $text-body;
+}
+
+.react-datepicker__day:hover,
+.react-datepicker__month-text:hover,
+.react-datepicker__quarter-text:hover,
+.react-datepicker__year-text:hover {
+  background-color: $gold-tint;
+  border-radius: 2px;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range,
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__month-text--keyboard-selected,
+.react-datepicker__quarter-text--keyboard-selected,
+.react-datepicker__year-text--keyboard-selected {
+  background-color: $gold;
+  color: $charcoal-900;
+  border-radius: 2px;
+}
+
+.react-datepicker__day--disabled,
+.react-datepicker__month-text--disabled,
+.react-datepicker__quarter-text--disabled,
+.react-datepicker__year-text--disabled {
+  color: $disabled;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: $text-strong;
+}
+
+.react-datepicker__month-select,
+.react-datepicker__year-select {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid $line-light;
+  border-radius: 2px;
+  background-color: $white;
+  color: $text-strong;
+  font-family: $font-body;
+  font-size: 0.85rem;
+}
+
+.react-datepicker-popper {
+  z-index: 10;
+}
+
+.react-datepicker__triangle::before {
+  border-bottom-color: $line-light !important;
+}
+
+.react-datepicker__triangle::after {
+  border-bottom-color: $sand !important;
+}
+

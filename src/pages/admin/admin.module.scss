@@ -1,153 +1,459 @@
 @import "@styles";
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: flex-start;
-}
-
-.react-calendar {
-  margin-top: 2rem;
-  margin-left: 2rem;
-}
-
-.calendar-hint {
-  width: 50rem;
-  display: flex;
-  background-color: $white;
-  justify-content: center;
-  column-gap: 2rem;
-  padding: 1.5rem 0rem;
-  margin-left: 2rem;
-
-  @media (width < $breakpoint-width-tablet) {
-    width: 30rem !important;
-  }
-
-  @media (width < $breakpoint-width-mobile) {
-    width: 20rem !important;
-  }
-}
-
-.hint-line {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 0.5rem;
-  font-weight: 600;
-}
-
-.available-circle {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 999px;
-  border: 1px solid;
-  background-color: $white;
-}
-
-.not-available-circle {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 999px;
-  border: 1px solid;
-  background-color: $primary;
-}
-
-.calendar-form {
-  width: 50rem;
-  height: 37rem;
-  background-color: $white;
-  margin-top: 2rem;
-  padding-left: 2rem;
+.page {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  overflow-y: auto;
-
-  .update-title {
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: flex-end;
-
-    button {
-      width: 10rem;
-      padding: 1rem 1rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      color: $white;
-      cursor: pointer;
-      border: 1px solid;
-      background-color: $primary;
-      box-shadow: $shadow-box-basic;
-      margin-bottom: 1rem;
-      margin-right: 2rem;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-    }
-  }
+  min-height: 100vh;
+  background-color: $ivory;
 }
 
-.days {
-  margin-top: 2rem;
-
-  .days-title {
-    font-weight: 600;
-    font-size: $label-large;
-  }
-
-  .days-container {
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-  }
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.weeks {
-  margin-top: 2rem;
-
-  .weeks-title {
-    font-weight: 600;
-    font-size: $label-large;
-  }
-
-  .weeks-container {
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-  }
+// --- Intro band -------------------------------------------------------------
+.intro {
+  background-color: $charcoal-900;
+  background-image: radial-gradient(circle at 12% -30%, rgba(201, 162, 77, 0.28), rgba(12, 14, 16, 0) 55%);
+  color: $text-on-dark;
 }
 
-.months {
-  margin-top: 2rem;
-
-  .months-title {
-    font-weight: 600;
-    font-size: $label-large;
-  }
-
-  .months-container {
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
-  }
+.intro-inner {
+  @include container($page-max-narrow);
+  @include section(3.25rem);
 }
 
-.week-ends {
-  label {
-    font-weight: 600;
-    font-size: $label-large;
-    margin-right: 2rem;
-  }
+.eyebrow {
+  @include eyebrow;
 
   display: flex;
   align-items: center;
-  margin-top: 2rem;
+  gap: 0.75rem;
+  color: $gold-light;
+
+  &::before {
+    @include gold-rule(28px);
+  }
 }
+
+.title {
+  @include heading-serif($fs-h2);
+
+  margin-top: 1rem;
+  color: $white;
+
+  span {
+    color: $gold-light;
+  }
+}
+
+.lede {
+  max-width: 46rem;
+  margin-top: 1.1rem;
+  font-size: $fs-lead;
+  line-height: $leading-relaxed;
+  color: $text-on-dark-muted;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.35rem 1.5rem;
+    background-color: $charcoal;
+  }
+}
+
+.stat-value {
+  font-family: $font-display;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: $gold-light;
+}
+
+.stat-value-status {
+  font-family: $font-display;
+  font-size: 1.4rem;
+  line-height: 1.15;
+  color: $gold-light;
+}
+
+.stat-label {
+  @include eyebrow;
+
+  font-size: 0.66rem;
+  color: $text-on-dark-muted;
+}
+
+.alert {
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 0, 0, 0.45);
+  border-radius: 3px;
+  background-color: rgba(255, 0, 0, 0.12);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: $white;
+}
+
+// --- Workspace --------------------------------------------------------------
+.workspace {
+  background-color: $ivory;
+}
+
+.workspace-inner {
+  @include container($page-max-narrow);
+  @include section(3.5rem);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 2.5rem;
+  align-items: start;
+
+  @include laptop {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.board {
+  @include card-shadow;
+
+  padding: 2rem;
+  background-color: $white;
+  border: 1px solid $line-light;
+
+  @include mobile {
+    padding: 1.15rem;
+  }
+
+  // react-calendar keeps its legacy sheet in globals.scss, so these overrides stay
+  // scoped to the board and use !important only where the legacy sheet does.
+  .calendar {
+    width: 100% !important;
+    background-color: transparent;
+    border: none;
+
+    :global(.react-calendar__navigation) {
+      height: auto;
+      margin-bottom: 1rem;
+    }
+
+    :global(.react-calendar__navigation button) {
+      min-width: 2.5rem;
+      padding: 0.6rem 0.4rem;
+      background-color: transparent;
+      border-radius: 2px;
+      color: $text-strong;
+      font-family: $font-body;
+      font-weight: $weight-bold;
+    }
+
+    :global(.react-calendar__navigation button:enabled:hover),
+    :global(.react-calendar__navigation button:enabled:focus) {
+      background-color: $gold-tint;
+    }
+
+    :global(.react-calendar__navigation__label) {
+      font-family: $font-display;
+      font-size: 1.15rem;
+    }
+
+    :global(.react-calendar__month-view__weekdays) {
+      color: $text-muted;
+      font-size: 0.74rem !important;
+      font-weight: $weight-bold;
+      letter-spacing: $tracking-wider;
+      text-transform: uppercase;
+
+      abbr {
+        text-decoration: none;
+      }
+    }
+
+    :global(.react-calendar__tile) {
+      padding: 0.85rem 0.4rem !important;
+      border-radius: 2px;
+      color: $text-body;
+      font-size: 0.95rem !important;
+    }
+
+    :global(.react-calendar__tile:disabled) {
+      background-color: rgba(201, 162, 77, 0.22) !important;
+      color: $text-strong;
+      opacity: 1;
+    }
+
+    :global(.react-calendar__tile:enabled:hover),
+    :global(.react-calendar__tile:enabled:focus) {
+      background-color: $gold-tint !important;
+    }
+
+    :global(.react-calendar__tile--now) {
+      background-color: transparent !important;
+      box-shadow: inset 0 0 0 1px $stone;
+    }
+
+    :global(.react-calendar__tile--active) {
+      background-color: $charcoal !important;
+      color: $white !important;
+    }
+
+    :global(.react-calendar__month-view__days__day--weekend) {
+      color: $text-body !important;
+    }
+
+    :global(.react-calendar__month-view__days__day--neighboringMonth) {
+      color: rgba(63, 70, 76, 0.35);
+    }
+  }
+}
+
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  margin: 1.75rem 0 0;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid $line-light;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: $text-body;
+  }
+}
+
+.dot-available,
+.dot-booked {
+  flex-shrink: 0;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+
+.dot-available {
+  background-color: $white;
+  border: 1px solid $stone;
+}
+
+.dot-booked {
+  background-color: rgba(201, 162, 77, 0.22);
+  border: 1px solid $gold;
+}
+
+// --- Side panel -------------------------------------------------------------
+.panel {
+  @include card-shadow;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 2rem;
+  background-color: $white;
+  border: 1px solid $line-light;
+
+  @include mobile {
+    padding: 1.35rem;
+  }
+}
+
+.panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $line-light;
+}
+
+.panel-eyebrow {
+  @include eyebrow;
+
+  color: $gold-dark;
+}
+
+.panel-title {
+  @include heading-serif($fs-h4);
+
+  margin-top: 0.6rem;
+  color: $text-strong;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.15rem 1.25rem;
+  background-color: $sand;
+  border: 1px solid $line-light;
+  border-radius: 3px;
+}
+
+.switch-title {
+  font-size: 0.98rem;
+  font-weight: $weight-bold;
+  color: $text-strong;
+}
+
+.switch-hint {
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: $text-muted;
+}
+
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 3.25rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid $stone;
+  border-radius: 999px;
+  background-color: $white;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0.2rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid $stone;
+  border-radius: 50%;
+  background-color: $white;
+  transform: translate(0, -50%);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.switch-on {
+  background-color: $gold;
+  border-color: $gold;
+
+  .switch-thumb {
+    background-color: $charcoal-900;
+    border-color: $charcoal-900;
+    transform: translate(1.6rem, -50%);
+  }
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-title {
+  @include eyebrow;
+
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.7rem;
+  color: $text-muted;
+}
+
+.group-icon {
+  display: inline-flex;
+  color: $gold-dark;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.group-count {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background-color: $gold-tint;
+  color: $gold-dark;
+  font-size: 0.66rem;
+  letter-spacing: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty {
+  padding: 1.75rem 1.5rem;
+  border: 1px dashed $stone;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: $text-muted;
+}
+
+.panel-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $line-light;
+  font-size: 0.82rem;
+  color: $text-muted;
+}
+
+.preview-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: $weight-semibold;
+  color: $gold-dark;
+  text-decoration: none;
+  transition: color 0.25s ease;
+
+  &:hover {
+    color: $text-strong;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switch,
+  .switch-thumb {
+    transition: none;
+  }
+}
+

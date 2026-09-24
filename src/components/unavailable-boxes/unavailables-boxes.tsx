@@ -1,67 +1,124 @@
-import { Unavailabilities } from "@prisma/client";
-import React from "react";
-import { MdDeleteOutline } from "react-icons/md";
+import type { ReactNode } from "react";
+import type { Unavailabilities } from "@prisma/client";
+import dayjs from "dayjs";
+import {
+  MdDeleteOutline,
+  MdOutlineToday,
+  MdOutlineCalendarViewWeek,
+  MdOutlineCalendarMonth,
+  MdOutlineDashboardCustomize,
+} from "react-icons/md";
 import styles from "./unavailables-boxes.module.scss";
 
-export const UnavailablesDayBox = ({ unavailability, onDelete }: { unavailability: Unavailabilities; onDelete: (unavailability: Unavailabilities) => void }) => {
-  return (
-    <div>
-      <div className={styles["day-box"]}>
-        <label>Day:</label>
-        <p className={styles["day-date"]}>{(unavailability.value as any).day}</p>
-        <MdDeleteOutline size={22} onClick={() => onDelete(unavailability)} />
-      </div>
+interface BoxProps {
+  unavailability: Unavailabilities;
+  onDelete: (unavailability: Unavailabilities) => void;
+}
+
+interface BoxShellProps extends BoxProps {
+  icon: ReactNode;
+  label: string;
+  value: string;
+  deleteLabel: string;
+}
+
+/** Prisma stores the payload as JSON, so every field is narrowed before it reaches the UI. */
+const readValue = (unavailability: Unavailabilities) => (unavailability.value ?? {}) as { day?: string; from?: string; to?: string };
+
+const formatDate = (value?: string) => {
+  if (!value) return "—";
+
+  const date = dayjs(value);
+
+  return date.isValid() ? date.format("ddd, MMM D YYYY") : value;
+};
+
+const formatRange = (from?: string, to?: string) => {
+  const start = dayjs(from);
+  const end = dayjs(to);
+
+  if (!start.isValid() || !end.isValid()) return `${formatDate(from)} → ${formatDate(to)}`;
+
+  const days = end.diff(start, "day") + 1;
+
+  return `${start.format("ddd, MMM D YYYY")} → ${end.format("ddd, MMM D YYYY")} · ${days} ${days === 1 ? "day" : "days"}`;
+};
+
+/** One blocked entry: type badge, readable dates and a labelled delete control. */
+const BoxShell = ({ icon, label, value, deleteLabel, onDelete, unavailability }: BoxShellProps) => (
+  <li className={styles["row"]}>
+    <span aria-hidden="true" className={styles["badge"]}>
+      {icon}
+    </span>
+
+    <div className={styles["info"]}>
+      <p className={styles["label"]}>{label}</p>
+      <p className={styles["value"]}>{value}</p>
     </div>
+
+    <button aria-label={deleteLabel} className={styles["delete"]} onClick={() => onDelete(unavailability)} type="button">
+      <MdDeleteOutline aria-hidden="true" />
+    </button>
+  </li>
+);
+
+export const UnavailablesDayBox = ({ unavailability, onDelete }: BoxProps) => {
+  const { day } = readValue(unavailability);
+
+  return (
+    <BoxShell
+      deleteLabel={`Delete the blocked day ${formatDate(day)}`}
+      icon={<MdOutlineToday />}
+      label="Single day"
+      onDelete={onDelete}
+      unavailability={unavailability}
+      value={formatDate(day)}
+    />
   );
 };
 
-export const UnavailablesWeekBox = ({ unavailability, onDelete }: { unavailability: Unavailabilities; onDelete: (unavailability: Unavailabilities) => void }) => {
+export const UnavailablesWeekBox = ({ unavailability, onDelete }: BoxProps) => {
+  const { from, to } = readValue(unavailability);
+
   return (
-    <div>
-      <div className={styles["from-to-box"]}>
-        <label>From:</label>
-        <p className={styles["from-to-date"]}>{(unavailability.value as any).from}</p>
-        <label>To:</label>
-        <p className={styles["from-to-date"]}>{(unavailability.value as any).to}</p>
-        <MdDeleteOutline size={22} onClick={() => onDelete(unavailability)} />
-      </div>
-    </div>
+    <BoxShell
+      deleteLabel={`Delete the blocked week starting ${formatDate(from)}`}
+      icon={<MdOutlineCalendarViewWeek />}
+      label="Full week"
+      onDelete={onDelete}
+      unavailability={unavailability}
+      value={formatRange(from, to)}
+    />
   );
 };
 
-export const UnavailablesMonthBox = ({ unavailability, onDelete }: { unavailability: Unavailabilities; onDelete: (unavailability: Unavailabilities) => void }) => {
+export const UnavailablesMonthBox = ({ unavailability, onDelete }: BoxProps) => {
+  const { from, to } = readValue(unavailability);
+
   return (
-    <div>
-      <div className={styles["from-to-box"]}>
-        <label>From:</label>
-        <p className={styles["from-to-date"]}>{(unavailability.value as any).from}</p>
-        <label>To:</label>
-        <p className={styles["from-to-date"]}>{(unavailability.value as any).to}</p>
-        <MdDeleteOutline size={22} onClick={() => onDelete(unavailability)} />
-      </div>
-    </div>
+    <BoxShell
+      deleteLabel={`Delete the blocked month starting ${formatDate(from)}`}
+      icon={<MdOutlineCalendarMonth />}
+      label="Full month"
+      onDelete={onDelete}
+      unavailability={unavailability}
+      value={formatRange(from, to)}
+    />
   );
 };
 
-export const UnavailablesFromToBox = ({ unavailability, onDelete }: { unavailability: Unavailabilities; onDelete: (unavailability: Unavailabilities) => void }) => {
+export const UnavailablesFromToBox = ({ unavailability, onDelete }: BoxProps) => {
+  const { from, to } = readValue(unavailability);
+
   return (
-    <div>
-      <div className={styles["from-to-box"]}>
-        <label>From:</label>
-        <p className={styles["from-to-date"]}>{(unavailability.value as any).from}</p>
-        <label>To:</label>
-        <p className={styles["from-to-date"]}>{(unavailability.value as any).to}</p>
-        <MdDeleteOutline size={22} onClick={() => onDelete(unavailability)} />
-      </div>
-    </div>
+    <BoxShell
+      deleteLabel={`Delete the custom range starting ${formatDate(from)}`}
+      icon={<MdOutlineDashboardCustomize />}
+      label="Custom range"
+      onDelete={onDelete}
+      unavailability={unavailability}
+      value={formatRange(from, to)}
+    />
   );
 };
 
-export const DisableWeekEnd = ({ unavailability, onChange }: { unavailability: Unavailabilities | null; onChange: () => void }) => {
-  return (
-    <div className={styles["weekend-box"]}>
-      <label>Unavailable in week-ends</label>
-      <input type={"checkbox"} placeholder="Disable Weekends" checked={unavailability ? true : false} onChange={onChange} />
-    </div>
-  );
-};

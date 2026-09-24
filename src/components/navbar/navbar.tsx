@@ -1,44 +1,54 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
+import { site } from "@webapp/data/site";
 import InfoBox from "./navbar.infobox";
 import styles from "./navbar.module.scss";
-import { useRouter } from "next/router";
 
 const LOGO_SIZE = 40;
 
+/** Admin chrome — the public header links would be noise inside the scheduling tool. */
 const Navbar = () => {
-  const router = useRouter();
-  const [accessToken, setAccessToken] = useState<String | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   const Logout = () => {
     window.localStorage.clear();
     window.location.reload();
   };
 
-  const GoHome = () => {
-    router.push("/home");
-  };
-
   useEffect(() => {
-    const accessToken = window.localStorage.getItem("accessToken");
-    setAccessToken(accessToken);
+    setAccessToken(window.localStorage.getItem("accessToken"));
   }, []);
 
   return (
-    <div className={styles["container"]}>
-      <div className={styles["logo"]}>
-        <Image className={styles["home-logo"]} onClick={GoHome} alt="logo" src={"/images/logo.png"} width={LOGO_SIZE} height={LOGO_SIZE} />
-        <p>Residential Contractor ROC 355657</p>
+    <header className={styles["container"]}>
+      <div className={styles["inner"]}>
+        <Link className={styles["brand"]} href="/home">
+          <Image alt={`${site.shortName} logo`} className={styles["logo"]} height={LOGO_SIZE} src={"/images/logo.png"} width={LOGO_SIZE} />
+          <span className={styles["brand-text"]}>
+            <strong>{site.shortName}</strong>
+            <small>
+              Scheduling admin · ROC {site.roc}
+            </small>
+          </span>
+        </Link>
+
+        <div className={styles["meta"]}>
+          <InfoBox icon={<FaPhoneAlt size={14} />} value={site.phoneDisplay} />
+          <InfoBox icon={<FaMapMarkerAlt size={14} />} value={site.areaShort} />
+          {accessToken && (
+            <button aria-label="Log out of the scheduling admin" className={styles["logout"]} onClick={Logout} type="button">
+              <BiLogOutCircle aria-hidden="true" size={18} />
+              <span>Log out</span>
+            </button>
+          )}
+        </div>
       </div>
-      <div className={styles["contact"]}>
-        <InfoBox icon={<FaPhoneAlt size={18} />} value={"(602) 245 - 1768"} />
-        <InfoBox icon={<FaMapMarkerAlt size={18} />} value={"Phoenix, AZ"} />
-        {accessToken && <BiLogOutCircle className={styles["logout"]} onClick={Logout} size={20} />}
-      </div>
-    </div>
+    </header>
   );
 };
 
 export default Navbar;
+
