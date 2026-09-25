@@ -3,7 +3,8 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  // Keep the Prisma client in the default package location so Next.js production
+  // builds do not try to bundle generated source files from src/generated.
 }
 
 datasource db {
