@@ -71,6 +71,12 @@ serialises on write and parses on read, so `/api/unavailabilities` keeps returni
 `{ id, type, value: { day?, from?, to? } }`. **Never return a raw row**: if `value` leaves the API as a
 string, the page's `normalize()` reads no dates and the calendar shows every day as free.
 
+The weekend switch is a toggle, not a range: `POST` with `type: WEEK_END` creates the single sentinel
+row when it is missing and clears it when it is present, answering `{ data: { removed: n } }` on the way
+off. `next build` type-checks against the generated client, so run `npm run db:generate` (also wired to
+`postinstall`) after pulling a schema change and before building — a client left over from the previous
+PostgreSQL schema types `value` as `JsonValue`, which fails the build on `unavailabilities.map(...)`.
+
 To change the schema, edit `prisma/schema.prisma` and run `npm run db:migrate`. Containers run
 `npm run db:deploy` instead, because `migrate dev` is interactive.
 

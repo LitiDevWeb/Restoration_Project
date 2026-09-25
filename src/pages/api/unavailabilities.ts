@@ -14,14 +14,20 @@ import type { Unavailability } from "@webapp/types/unavailability";
 type Data = {
   error?: string;
   message?: string;
-  data?: any;
+  data?: Unavailability | Unavailability[] | { removed: number };
 };
 
 /**
  * SQLite keeps no Json column type, so `value` is persisted as JSON text and
  * parsed back into the object shape the pages expect before it leaves the API.
+ *
+ * `type` and `value` are deliberately typed as `unknown`: the generated Prisma
+ * client has described them as `string` (current SQLite schema) and as
+ * `JsonValue` (the previous PostgreSQL schema), and the runtime narrowing below
+ * accepts either. Keeping this structural means a stale generated client can no
+ * longer break `next build`.
  */
-const normalize = (row: { id: number; type: string; value: string }): Unavailability => ({
+const normalize = (row: { id: number; type: unknown; value: unknown }): Unavailability => ({
   id: row.id,
   type: isUnavailabilityType(row.type) ? row.type : UnavailabilityType.DAY,
   value: parseUnavailabilityValue(row.value),
@@ -63,19 +69,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       },
     });
 
-    let result;
+    // Toggling the switch off clears the single sentinel row; toggling it on creates it.
+    if (weekEnds) {
+      const removed = await prisma.unavailabilities.deleteMany({ where: { type: UnavailabilityType.WEEK_END } });
 
-    if (weekEnds) result = await prisma.unavailabilities.deleteMany({ where: { type: UnavailabilityType.WEEK_END } });
-    else
-      result = await prisma.unavailabilities.create({
-        data: {
-          type,
-          value: serializeUnavailabilityValue(value),
-        },
+      return res.status(200).json({
+        data: { removed: removed.count },
       });
+    }
+
+    const result = await prisma.unavailabilities.create({
+      data: {
+        type,
+        value: serializeUnavailabilityValue(value),
+      },
+    });
 
     return res.status(200).json({
-      data: result,
+      data: normalize(result),
     });
   }
 
