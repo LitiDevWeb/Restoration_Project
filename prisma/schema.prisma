@@ -20,7 +20,7 @@ model Admin {
 
 model Unavailabilities {
   id    Int    @id @default(autoincrement())
-  // SQLite with the Prisma 4.x connector has no native enum or Json support, so
+  // Prisma's SQLite connector supports neither `enum` nor `Json` columns, so
   // the booking type is validated in TypeScript (@webapp/types/unavailability)
   // and the payload is stored as a JSON string. Both columns are plain TEXT.
   type  String

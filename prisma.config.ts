@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 /**
  * Prisma CLI configuration (Prisma 7+).
@@ -21,8 +21,13 @@ export default defineConfig({
     seed: "tsx prisma/seed.ts",
   },
   datasource: {
-    // Relative SQLite paths resolve against this file (the project root), which
-    // is also the working directory the driver adapter resolves them against.
-    url: env("DATABASE_URL"),
+    // `env("DATABASE_URL")` from `prisma/config` throws a PrismaConfigEnvError while
+    // this file is being loaded, which would break `npm install` on a fresh clone:
+    // postinstall runs `prisma generate` before `.env` exists. Only the migration and
+    // introspection commands need a URL, so read the variable directly and fall back
+    // to the path documented for local development.
+    // Relative SQLite paths resolve against this file (the project root), which is also
+    // the working directory the driver adapter resolves them against.
+    url: process.env.DATABASE_URL ?? "file:./data/dev.db",
   },
 });

@@ -5,9 +5,9 @@ general contractor (ROC 355657) serving the Phoenix Valley and surrounding areas
 
 ## Stack
 
-- Next.js (Pages Router) + React 18 + TypeScript
+- Next.js 15 (Pages Router) + React 18 + TypeScript
 - SCSS Modules on top of shared design tokens (`src/styles/`)
-- Prisma (SQLite) for the crew availability calendar
+- Prisma 7 (SQLite) through the `better-sqlite3` driver adapter for the crew availability calendar
 - Axios for the calendar availability endpoint
 
 ## Commands
@@ -16,7 +16,7 @@ general contractor (ROC 355657) serving the Phoenix Valley and surrounding areas
 npm run dev      # local development on http://localhost:3000
 npm run build    # production build
 npm run start    # serve the production build
-npm run lint     # ESLint (next lint)
+npm run lint     # ESLint (eslint .)
 npx tsc --noEmit -p tsconfig.json   # type check
 
 npm run db:migrate   # prisma migrate dev — create and apply a migration
@@ -52,14 +52,17 @@ components:
 
 The availability calendar is backed by **SQLite** through Prisma, so there is no database server to
 run. Everything lives in a single file, `data/dev.db`, addressed by `DATABASE_URL`
-(`file:../data/dev.db` — Prisma resolves relative SQLite paths from `prisma/schema.prisma`) and
-gitignored like the rest of `data/`.
+(`file:./data/dev.db` — since Prisma 7 the URL lives in `prisma.config.ts`, not in the schema, and
+relative SQLite paths resolve from the project root) and gitignored like the rest of `data/`.
 
 - `prisma/schema.prisma` — `Admin` (credentials for `/admin`) and `Unavailabilities` (`type` + `value`)
+- `prisma.config.ts` — Prisma CLI config: schema, migrations, the seed command and `DATABASE_URL`
 - `prisma/seed.ts` — creates the admin account from `ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD`
-- `src/lib/prisma.ts` — the single `PrismaClient` shared by the API routes and the seed script
+- `src/lib/prisma.ts` — the single `PrismaClient`, wrapped in the `better-sqlite3` driver adapter,
+shared by the API routes and the seed script
+- `src/generated/prisma` — the generated Prisma 7 client, gitignored and rebuilt by `postinstall`
 
-Prisma 4.x supports neither `enum` nor `Json` columns on SQLite, so both `Unavailabilities` columns are
+Prisma has no `enum` or `Json` column type on SQLite, so both `Unavailabilities` columns are
 plain `TEXT`:
 
 - `type` — one of `DAY`, `WEEK`, `MONTH`, `FROM_TO`, `WEEK_END`
@@ -80,13 +83,28 @@ PostgreSQL schema types `value` as `JsonValue`, which fails the build on `unavai
 To change the schema, edit `prisma/schema.prisma` and run `npm run db:migrate`. Containers run
 `npm run db:deploy` instead, because `migrate dev` is interactive.
 
+## Toolchain notes
+
+- **Keep `moduleResolution: "bundler"` in `tsconfig.json`.** Prisma 7 generates the client as
+TypeScript that imports its own modules with ESM `.js` specifiers (`./internal/class.js`) pointing
+at the sibling `.ts` files, and Next derives the `.js` — `.ts` extension alias for its bundler
+from that setting. Under `"node"` the build fails with `Module not found: Can't resolve
+'./internal/class.js'`.
+- Node 22.12 or newer is what Prisma 7 asks for (`dockerfile` uses `node:22-slim`), and `better-sqlite3`
+stays on 12.x, the peer range `@prisma/adapter-better-sqlite3` declares.
+- `next.config.mjs` instead of `next.config.js` because `package.json` is `"type": "module"`, and `eslint`
+is pinned to 8.57 because `eslint-config-next` 15 cannot find the pages directory on older 8.x
+releases.
+- React stays on 18: `react-modal` and `react-swipe` still call `findDOMNode`, which React 19 removed.
+- `npm run lint` runs the ESLint CLI directly; `next lint` is deprecated in Next 15 and removed in Next 16.
+
 ## Environment variables
 
 Copy `.env.example` to `.env` and fill in the values.
 
 | Variable | Purpose |
 | --- | --- |
-| `DATABASE_URL` | SQLite file Prisma uses for the availability calendar (`file:../data/dev.db`) |
+| `DATABASE_URL` | SQLite file Prisma uses for the availability calendar (`file:./data/dev.db`, from the project root) |
 | `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Account created by `npm run db:seed` for `/admin` |
 | `JWT_KEY` | Signing key for the `/admin` API routes |
 

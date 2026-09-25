@@ -1,3 +1,5 @@
+# Node 22 satisfies the Prisma 7 engine range (^20.19 || ^22.12 || >=24) and
+# Next.js 15 needs Node >= 18.18.
 FROM node:22-slim
 
 WORKDIR /app
