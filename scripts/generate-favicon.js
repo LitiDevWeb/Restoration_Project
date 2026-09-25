@@ -10,11 +10,14 @@
 //
 // Run with: npm run favicons
 
-const fs = require('fs');
-const path = require('path');
-const sharp = require('sharp');
+import fs from 'fs';
+import path from 'path';
+import sharp from 'sharp';
+import { fileURLToPath } from 'url';
 
-const ROOT = path.resolve(__dirname, '..');
+// package.json declares "type": "module", so this file is ESM: `__dirname` is
+// gone and has to be rebuilt from `import.meta.url`.
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const LOGO_PATH = path.join(PUBLIC_DIR, 'images', 'logo.png');
 

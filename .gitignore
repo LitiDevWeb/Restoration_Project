@@ -2,6 +2,10 @@
 
 # dependencies
 /node_modules
+
+# Prisma 7 generates the client into the app tree instead of node_modules;
+# `prisma generate` (wired to postinstall) recreates it on every install.
+/src/generated
 /data
 /.pnp
 .pnp.js
