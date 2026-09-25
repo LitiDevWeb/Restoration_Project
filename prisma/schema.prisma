@@ -3,8 +3,13 @@
 
 generator client {
   provider = "prisma-client"
-  // Keep the Prisma client in the default package location so Next.js production
-  // builds do not try to bundle generated source files from src/generated.
+  // The Prisma 7 `prisma-client` generator always emits source files into the app
+  // tree (there is no node_modules fallback), so `output` is mandatory here: omitting
+  // it fails `prisma generate` with "An output path is required". The path is relative
+  // to this schema directory, and `src/lib/prisma.ts` imports the result through the
+  // `@webapp/*` alias as `@webapp/generated/prisma/client`. The folder is gitignored
+  // and rebuilt by the `postinstall` script.
+  output = "../src/generated/prisma"
 }
 
 datasource db {
