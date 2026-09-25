@@ -12,6 +12,8 @@ import PageHero from '@webapp/components/page-hero/page-hero';
 import Seo from '@webapp/components/seo/seo';
 import { breadcrumbSchema, localBusinessSchema } from '@webapp/data/schema';
 import { site } from '@webapp/data/site';
+import { isUnavailabilityType, parseUnavailabilityValue } from '@webapp/types/unavailability';
+import type { Unavailability } from '@webapp/types/unavailability';
 import heroImage from '@images/design.png';
 import styles from './calendar.module.scss';
 
@@ -19,27 +21,11 @@ dayjs.extend(isBetween);
 
 const TIMESTAMP_FORMAT = 'YYYY-MM-DD';
 
-const UNAVAILABILITY_TYPES = ['DAY', 'WEEK', 'MONTH', 'FROM_TO', 'WEEK_END'] as const;
-
-type UnavailabilityType = (typeof UNAVAILABILITY_TYPES)[number];
-
-type Unavailability = {
-  id: number;
-  type: UnavailabilityType;
-  value: { day?: string; from?: string; to?: string };
-};
-
 interface CalendarProps {
   unavailabilities: Unavailability[];
 }
 
-const isUnavailabilityType = (value: unknown): value is UnavailabilityType =>
-  typeof value === 'string' && UNAVAILABILITY_TYPES.includes(value as UnavailabilityType);
-
-const readString = (record: Record<string, unknown>, key: string) =>
-  typeof record[key] === 'string' ? (record[key] as string) : undefined;
-
-/** The API returns Prisma Json values, so every field is narrowed before it reaches the calendar. */
+/** The API hands back the stored JSON payload, so every field is narrowed before it reaches the calendar. */
 const normalize = (rows: unknown): Unavailability[] => {
   if (!Array.isArray(rows)) return [];
 
@@ -47,14 +33,12 @@ const normalize = (rows: unknown): Unavailability[] => {
     if (typeof row !== 'object' || row === null) return [];
 
     const record = row as Record<string, unknown>;
-    const value =
-      typeof record.value === 'object' && record.value !== null ? (record.value as Record<string, unknown>) : {};
 
     return [
       {
         id: typeof record.id === 'number' ? record.id : 0,
         type: isUnavailabilityType(record.type) ? record.type : 'DAY',
-        value: { day: readString(value, 'day'), from: readString(value, 'from'), to: readString(value, 'to') },
+        value: parseUnavailabilityValue(record.value),
       },
     ];
   });

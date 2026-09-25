@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { UnavailabilityType } from "@prisma/client";
+import { UnavailabilityType } from "@webapp/types/unavailability";
 import {
   MdOutlineToday,
   MdOutlineCalendarViewWeek,

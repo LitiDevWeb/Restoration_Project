@@ -18,7 +18,6 @@ import {
   MdOutlineCalendarMonth,
   MdOutlineDashboardCustomize,
 } from "react-icons/md";
-import { Unavailabilities, UnavailabilityType } from "@prisma/client";
 
 import AvailabilityForm from "@webapp/components/availability-form/availability-form";
 import Button from "@webapp/components/button/button";
@@ -32,6 +31,8 @@ import {
 } from "@webapp/components/unavailable-boxes/unavailables-boxes";
 import { API_URL, REQUEST_TIMEOUT } from "@webapp/constants";
 import { getServerApiUrl } from "@webapp/helpers/getServerApiUrl";
+import { UnavailabilityType } from "@webapp/types/unavailability";
+import type { Unavailability } from "@webapp/types/unavailability";
 import styles from "./admin.module.scss";
 
 dayjs.extend(isBetween);
@@ -39,20 +40,20 @@ dayjs.extend(isBetween);
 const TIMESTAMP_FORMAT = "YYYY-MM-DD";
 
 interface AdminProps {
-  data: Unavailabilities[];
+  data: Unavailability[];
   loadError?: string | null;
 }
 
 interface BoxProps {
-  unavailability: Unavailabilities;
-  onDelete: (unavailability: Unavailabilities) => void;
+  unavailability: Unavailability;
+  onDelete: (unavailability: Unavailability) => void;
 }
 
 interface Group {
   key: string;
   label: string;
   icon: ReactNode;
-  rows: Unavailabilities[];
+  rows: Unavailability[];
   Box: ComponentType<BoxProps>;
 }
 
@@ -95,7 +96,7 @@ const Admin = ({ data, loadError = null }: AdminProps) => {
     setAccessToken(window.localStorage.getItem("accessToken"));
   }, []);
 
-  const rows: Unavailabilities[] = Array.isArray(data) ? data : [];
+  const rows: Unavailability[] = Array.isArray(data) ? data : [];
 
   const groupOf = (type: UnavailabilityType) => rows.filter((row) => row.type === type);
 
@@ -108,6 +109,13 @@ const Admin = ({ data, loadError = null }: AdminProps) => {
   const weekendsBlocked = weekEndsUnavailabilities.length > 0;
   const blockedCount = daysUnavailabilities.length + weeksUnavailabilities.length + monthsUnavailabilities.length + fromToUnavailabilities.length;
 
+  const isBetweenRange = (row: Unavailability, date: string) =>
+    dayjs(date).isBetween(
+      dayjs(row.value.from).subtract(1, "day").format(TIMESTAMP_FORMAT),
+      dayjs(row.value.to).add(1, "day").format(TIMESTAMP_FORMAT),
+      "day"
+    );
+
   const checkIfUnavailable = (date: any) => {
     const currentDate = dayjs(date);
     const formattedCurrentDate = currentDate.format(TIMESTAMP_FORMAT);
@@ -115,40 +123,12 @@ const Admin = ({ data, loadError = null }: AdminProps) => {
     for (const row of rows) {
       switch (row.type) {
         case UnavailabilityType.DAY:
-          if ((row.value as any)?.day === formattedCurrentDate) return true;
+          if (row.value.day === formattedCurrentDate) return true;
           break;
         case UnavailabilityType.WEEK:
-          if (
-            dayjs(formattedCurrentDate).isBetween(
-              dayjs((row.value as any)?.from).subtract(1, "day").format(TIMESTAMP_FORMAT),
-              dayjs((row.value as any)?.to).add(1, "day").format(TIMESTAMP_FORMAT),
-              "day"
-            )
-          ) {
-            return true;
-          }
-          break;
         case UnavailabilityType.MONTH:
-          if (
-            dayjs(formattedCurrentDate).isBetween(
-              dayjs((row.value as any)?.from).subtract(1, "day").format(TIMESTAMP_FORMAT),
-              dayjs((row.value as any)?.to).add(1, "day").format(TIMESTAMP_FORMAT),
-              "day"
-            )
-          ) {
-            return true;
-          }
-          break;
         case UnavailabilityType.FROM_TO:
-          if (
-            dayjs(formattedCurrentDate).isBetween(
-              dayjs((row.value as any)?.from).subtract(1, "day").format(TIMESTAMP_FORMAT),
-              dayjs((row.value as any)?.to).add(1, "day").format(TIMESTAMP_FORMAT),
-              "day"
-            )
-          ) {
-            return true;
-          }
+          if (isBetweenRange(row, formattedCurrentDate)) return true;
           break;
         case UnavailabilityType.WEEK_END:
           if (currentDate.day() === 6 || currentDate.day() === 0) return true;
@@ -162,7 +142,7 @@ const Admin = ({ data, loadError = null }: AdminProps) => {
     return false;
   };
 
-  const onDelete = async (unavailability: Unavailabilities) => {
+  const onDelete = async (unavailability: Unavailability) => {
     const confirm = window.confirm("Do you really want to delete that unavailability?");
 
     if (!confirm) return;

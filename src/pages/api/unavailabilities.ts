@@ -1,10 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { PrismaClient, UnavailabilityType } from "@prisma/client";
 import { isAuthorized } from "@webapp/helpers/isAuthorized";
-
-const prisma = new PrismaClient();
+import prisma from "@webapp/lib/prisma";
+import {
+  isUnavailabilityType,
+  parseUnavailabilityValue,
+  serializeUnavailabilityValue,
+  UnavailabilityType,
+} from "@webapp/types/unavailability";
+import type { Unavailability } from "@webapp/types/unavailability";
 
 type Data = {
   error?: string;
@@ -12,14 +17,22 @@ type Data = {
   data?: any;
 };
 
+/**
+ * SQLite keeps no Json column type, so `value` is persisted as JSON text and
+ * parsed back into the object shape the pages expect before it leaves the API.
+ */
+const normalize = (row: { id: number; type: string; value: string }): Unavailability => ({
+  id: row.id,
+  type: isUnavailabilityType(row.type) ? row.type : UnavailabilityType.DAY,
+  value: parseUnavailabilityValue(row.value),
+});
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === "GET") {
     const unavailabilities = await prisma.unavailabilities.findMany();
 
-    prisma.$disconnect();
-
     return res.status(200).json({
-      data: unavailabilities,
+      data: unavailabilities.map(normalize),
     });
   }
 
@@ -28,43 +41,42 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const { type, value } = req.body;
 
+    if (!isUnavailabilityType(type)) return res.status(400).json({ error: "Bad Request", message: "Unknown unavailability type" });
+
+    // Weekend blocking is a switch, not a range: the row either exists or it does not.
     if (type !== UnavailabilityType.WEEK_END) {
       const result = await prisma.unavailabilities.create({
         data: {
           type,
-          value,
+          value: serializeUnavailabilityValue(value),
         },
       });
 
-      prisma.$disconnect();
-
       return res.status(200).json({
-        data: result,
-      });
-    } else {
-      let result = {};
-
-      const weekEnds = await prisma.unavailabilities.findFirst({
-        where: {
-          type: UnavailabilityType.WEEK_END,
-        },
-      });
-
-      if (weekEnds) result = await prisma.unavailabilities.deleteMany({ where: { type: UnavailabilityType.WEEK_END } });
-      if (!weekEnds)
-        result = await prisma.unavailabilities.create({
-          data: {
-            type,
-            value,
-          },
-        });
-
-      prisma.$disconnect();
-
-      return res.status(200).json({
-        data: result,
+        data: normalize(result),
       });
     }
+
+    const weekEnds = await prisma.unavailabilities.findFirst({
+      where: {
+        type: UnavailabilityType.WEEK_END,
+      },
+    });
+
+    let result;
+
+    if (weekEnds) result = await prisma.unavailabilities.deleteMany({ where: { type: UnavailabilityType.WEEK_END } });
+    else
+      result = await prisma.unavailabilities.create({
+        data: {
+          type,
+          value: serializeUnavailabilityValue(value),
+        },
+      });
+
+    return res.status(200).json({
+      data: result,
+    });
   }
 
   if (req.method === "DELETE") {
@@ -80,10 +92,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       },
     });
 
-    prisma.$disconnect();
-
     return res.status(200).json({
-      data: result,
+      data: normalize(result),
     });
   }
+
+  return res.status(405).json({ error: "Method Not Allowed", message: "Unsupported method" });
 }

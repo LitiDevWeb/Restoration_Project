@@ -1,11 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { PrismaClient } from "@prisma/client";
 import { checkHash } from "@webapp/helpers/encryption/encrypt";
 import { signToken } from "@webapp/helpers/encryption/jwt";
-
-const prisma = new PrismaClient();
+import prisma from "@webapp/lib/prisma";
 
 type Data = {
   error?: string;
@@ -32,8 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     delete user.password;
 
     const token = signToken(user);
-
-    prisma.$disconnect();
 
     return res.status(200).json({
       data: {

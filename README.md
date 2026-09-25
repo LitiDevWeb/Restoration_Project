@@ -7,7 +7,7 @@ general contractor (ROC 355657) serving the Phoenix Valley and surrounding areas
 
 - Next.js (Pages Router) + React 18 + TypeScript
 - SCSS Modules on top of shared design tokens (`src/styles/`)
-- Prisma (PostgreSQL) for the crew availability calendar
+- Prisma (SQLite) for the crew availability calendar
 - Axios for the calendar availability endpoint
 
 ## Commands
@@ -18,6 +18,11 @@ npm run build    # production build
 npm run start    # serve the production build
 npm run lint     # ESLint (next lint)
 npx tsc --noEmit -p tsconfig.json   # type check
+
+npm run db:migrate   # prisma migrate dev — create and apply a migration
+npm run db:deploy    # prisma migrate deploy — apply pending migrations (containers)
+npm run db:seed      # prisma db seed — create the admin user from .env
+npm run db:studio    # prisma studio — browse the database
 ```
 
 ## Routes
@@ -43,13 +48,40 @@ components:
 - `src/data/projects.ts` — projects, photo stages (before / progress / after) and gallery stats
 - `src/data/schema.ts` — JSON-LD structured data helpers
 
+## Database
+
+The availability calendar is backed by **SQLite** through Prisma, so there is no database server to
+run. Everything lives in a single file, `data/dev.db`, addressed by `DATABASE_URL`
+(`file:../data/dev.db` — Prisma resolves relative SQLite paths from `prisma/schema.prisma`) and
+gitignored like the rest of `data/`.
+
+- `prisma/schema.prisma` — `Admin` (credentials for `/admin`) and `Unavailabilities` (`type` + `value`)
+- `prisma/seed.ts` — creates the admin account from `ADMIN_NAME` / `ADMIN_EMAIL` / `ADMIN_PASSWORD`
+- `src/lib/prisma.ts` — the single `PrismaClient` shared by the API routes and the seed script
+
+Prisma 4.x supports neither `enum` nor `Json` columns on SQLite, so both `Unavailabilities` columns are
+plain `TEXT`:
+
+- `type` — one of `DAY`, `WEEK`, `MONTH`, `FROM_TO`, `WEEK_END`
+- `value` — the payload (`.day`, `.from`, `.to`) stored as a JSON string
+
+`src/types/unavailability.ts` owns those conventions (`UnavailabilityType`, `UnavailabilityValue`,
+`isUnavailabilityType`, `parseUnavailabilityValue`, `serializeUnavailabilityValue`). The API route
+serialises on write and parses on read, so `/api/unavailabilities` keeps returning
+`{ id, type, value: { day?, from?, to? } }`. **Never return a raw row**: if `value` leaves the API as a
+string, the page's `normalize()` reads no dates and the calendar shows every day as free.
+
+To change the schema, edit `prisma/schema.prisma` and run `npm run db:migrate`. Containers run
+`npm run db:deploy` instead, because `migrate dev` is interactive.
+
 ## Environment variables
 
 Copy `.env.example` to `.env` and fill in the values.
 
 | Variable | Purpose |
 | --- | --- |
-| `DATABASE_URL`, `POSTGRES_*` | Prisma connection for the availability calendar |
+| `DATABASE_URL` | SQLite file Prisma uses for the availability calendar (`file:../data/dev.db`) |
+| `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Account created by `npm run db:seed` for `/admin` |
 | `JWT_KEY` | Signing key for the `/admin` API routes |
 
 ## Editing notes

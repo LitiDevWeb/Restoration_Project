@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Unavailabilities } from "@prisma/client";
+import type { Unavailability, UnavailabilityValue } from "@webapp/types/unavailability";
 import dayjs from "dayjs";
 import {
   MdDeleteOutline,
@@ -11,8 +11,8 @@ import {
 import styles from "./unavailables-boxes.module.scss";
 
 interface BoxProps {
-  unavailability: Unavailabilities;
-  onDelete: (unavailability: Unavailabilities) => void;
+  unavailability: Unavailability;
+  onDelete: (unavailability: Unavailability) => void;
 }
 
 interface BoxShellProps extends BoxProps {
@@ -22,8 +22,8 @@ interface BoxShellProps extends BoxProps {
   deleteLabel: string;
 }
 
-/** Prisma stores the payload as JSON, so every field is narrowed before it reaches the UI. */
-const readValue = (unavailability: Unavailabilities) => (unavailability.value ?? {}) as { day?: string; from?: string; to?: string };
+/** The API hands back `value` already parsed, so it is narrowed once more before it reaches the UI. */
+const readValue = (unavailability: Unavailability): UnavailabilityValue => unavailability.value ?? {};
 
 const formatDate = (value?: string) => {
   if (!value) return "—";

@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { UnavailabilityType } from "@prisma/client";
+import { UnavailabilityType } from "@webapp/types/unavailability";
 
 import AvailabilityTypeSelect from "../availability-type-select/availability-type-select";
 import Button from "../button/button";

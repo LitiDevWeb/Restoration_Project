@@ -1,8 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-// import { hash } from "@webapp/helpers/encryption/encrypt";
 import { hash } from "../src/helpers/encryption/encrypt";
-
-const prisma = new PrismaClient();
+import { prisma } from "../src/lib/prisma";
 
 async function main() {
   console.log("Seeding");
